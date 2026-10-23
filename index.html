@@ -16,7 +16,7 @@
       --arce-red: #d9232e;
       --bg-light: #f4f6f9;
       --card-bg: #ffffff;
-      --border-color: #e2e8f0;
+      --border-color: #cbd5e1;
       --text-main: #1e293b;
       --text-muted: #64748b;
       --success: #10b981;
@@ -32,7 +32,7 @@
       min-height: 100vh;
     }
 
-    /* HEADER CORPORATIVO IDÉNTICO */
+    /* HEADER CORPORATIVO */
     header.main-header {
       background: var(--arce-navy);
       color: white;
@@ -44,11 +44,7 @@
       border-bottom: 4px solid var(--arce-red);
     }
 
-    .brand-container {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-    }
+    .brand-container { display: flex; align-items: center; gap: 1.2rem; }
 
     .logo-box {
       background: white;
@@ -57,10 +53,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .logo-box img {
-      height: 38px;
     }
 
     .brand-text h1 {
@@ -82,17 +74,9 @@
       letter-spacing: 0.5px;
     }
 
-    .brand-text p {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      margin-top: 2px;
-    }
+    .brand-text p { font-size: 0.8rem; color: #94a3b8; margin-top: 2px; }
 
-    .header-controls {
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-    }
+    .header-controls { display: flex; gap: 0.6rem; align-items: center; }
 
     .btn {
       padding: 0.55rem 1rem;
@@ -114,7 +98,7 @@
     .btn-icon { background: rgba(255,255,255,0.1); color: white; padding: 0.55rem; }
     .btn-icon:hover { background: rgba(255,255,255,0.2); }
 
-    /* BARRA DE MÉTRICAS Y CONTACTOS OPERATIVOS */
+    /* BARRA DE MÉTRICAS Y CONTACTOS */
     .info-bar {
       background: white;
       border-bottom: 1px solid var(--border-color);
@@ -152,16 +136,11 @@
       padding-top: 0.4rem;
     }
 
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
+    .contact-item { display: flex; align-items: center; gap: 0.3rem; }
     .contact-item b { color: var(--arce-navy); }
     .contact-item a { color: var(--arce-blue); text-decoration: none; font-weight: 700; }
 
-    /* FILTROS DE BÚSQUEDA */
+    /* BÚSQUEDA Y FILTROS */
     .filter-bar {
       padding: 1rem 2.5rem 0.5rem 2.5rem;
       display: flex;
@@ -169,11 +148,7 @@
       align-items: center;
     }
 
-    .search-wrapper {
-      position: relative;
-      width: 320px;
-    }
-
+    .search-wrapper { position: relative; width: 320px; }
     .search-wrapper input {
       width: 100%;
       padding: 0.55rem 1rem 0.55rem 2.2rem;
@@ -182,13 +157,9 @@
       font-size: 0.82rem;
       background: white;
     }
-
     .search-wrapper i {
-      position: absolute;
-      left: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
+      position: absolute; left: 0.75rem; top: 50%;
+      transform: translateY(-50%); color: var(--text-muted);
     }
 
     /* KANBAN PIPELINE */
@@ -239,7 +210,7 @@
       min-height: 200px;
     }
 
-    /* CARD DESIGN IDÉNTICO */
+    /* TARJETAS FLETEROS */
     .card {
       background: white;
       border-radius: 8px;
@@ -250,190 +221,108 @@
       position: relative;
     }
 
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.2rem;
-    }
-
-    .card-name {
-      font-weight: 800;
-      font-size: 0.9rem;
-      color: var(--arce-navy);
-    }
-
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.2rem; }
+    .card-name { font-weight: 800; font-size: 0.9rem; color: var(--arce-navy); }
     .pct-badge {
-      background: #fef3c7;
-      color: #b45309;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 0.15rem 0.4rem;
-      border-radius: 10px;
+      background: #fef3c7; color: #b45309; font-size: 0.72rem;
+      font-weight: 800; padding: 0.15rem 0.4rem; border-radius: 10px;
     }
-
-    .pct-badge.complete {
-      background: #d1fae5;
-      color: #047857;
-    }
-
-    .card-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 0.6rem;
-    }
+    .pct-badge.complete { background: #d1fae5; color: #047857; }
+    .card-sub { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem; }
 
     .card-grid {
-      background: #f8fafc;
-      border: 1px solid #f1f5f9;
-      border-radius: 6px;
-      padding: 0.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.3rem;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-bottom: 0.6rem;
+      background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 6px;
+      padding: 0.5rem; display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.3rem; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.6rem;
     }
-
     .card-grid b { color: var(--arce-navy); }
 
-    .progress-track {
-      background: #e2e8f0;
-      height: 4px;
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 0.6rem;
-    }
+    .progress-track { background: #e2e8f0; height: 4px; border-radius: 4px; overflow: hidden; margin-bottom: 0.6rem; }
+    .progress-fill { height: 100%; background: var(--arce-orange); border-radius: 4px; }
 
-    .progress-fill {
-      height: 100%;
-      background: var(--arce-orange);
-      border-radius: 4px;
-    }
-
-    .pills-row {
-      display: flex;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.8rem;
-    }
-
+    .pills-row { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
     .doc-pill {
-      font-size: 0.62rem;
-      font-weight: 800;
-      padding: 0.1rem 0.35rem;
-      border-radius: 4px;
-      border: 1px solid #fca5a5;
-      color: #b91c1c;
-      background: #fef2f2;
+      font-size: 0.62rem; font-weight: 800; padding: 0.1rem 0.35rem;
+      border-radius: 4px; border: 1px solid #fca5a5; color: #b91c1c; background: #fef2f2;
     }
-
-    .doc-pill.ok {
-      border-color: #86efac;
-      color: #15803d;
-      background: #f0fdf4;
-    }
+    .doc-pill.ok { border-color: #86efac; color: #15803d; background: #f0fdf4; }
 
     .card-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #f1f5f9;
-      padding-top: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid #f1f5f9; padding-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted);
     }
-
-    .action-btns i {
-      cursor: pointer;
-      margin-right: 0.5rem;
-      transition: color 0.2s;
-    }
-
+    .action-btns i { cursor: pointer; margin-right: 0.5rem; transition: color 0.2s; }
     .action-btns i:hover { color: var(--arce-blue); }
 
     .nav-arrow {
-      background: var(--arce-blue);
-      color: white;
-      border: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
+      background: var(--arce-blue); color: white; border: none; width: 20px; height: 20px;
+      border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center;
+      justify-content: center; font-size: 0.65rem;
     }
 
-    /* MODAL GENERAL */
+    /* MODAL ALTA / EDICIÓN SEPARADA EN SECCIONES */
     .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(9, 30, 54, 0.7);
-      backdrop-filter: blur(3px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(9, 30, 54, 0.7); backdrop-filter: blur(3px);
+      display: none; justify-content: center; align-items: center; z-index: 1000;
     }
 
     .modal-box {
-      background: white;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 700px;
-      max-height: 90vh;
-      overflow-y: auto;
+      background: white; border-radius: 10px; width: 95%; max-width: 850px;
+      max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
     .modal-head {
-      background: var(--arce-navy);
-      color: white;
-      padding: 1rem 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background: var(--arce-navy); color: white; padding: 1rem 1.2rem;
+      display: flex; justify-content: space-between; align-items: center;
     }
 
-    .modal-body { padding: 1.2rem; }
+    .modal-body { padding: 1.5rem; }
 
-    .checklist-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-top: 0.8rem;
+    .form-section-title {
+      font-size: 0.85rem; font-weight: 800; color: var(--arce-blue);
+      text-transform: uppercase; margin-top: 1.2rem; margin-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem;
     }
 
-    .check-item {
-      background: #f8fafc;
-      border: 1px solid var(--border-color);
-      padding: 0.6rem;
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.8rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+    .form-group label { font-size: 0.78rem; font-weight: 700; color: var(--text-main); }
+    .form-group input, .form-group select {
+      padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 5px; font-size: 0.82rem;
     }
+
+    /* CHECKLIST DUAL (CHOFER vs VEHÍCULO) */
+    .doc-dual-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 0.5rem; }
+    .doc-column-box {
+      background: #f8fafc; border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 0.8rem;
+    }
+    .doc-column-header {
+      font-size: 0.82rem; font-weight: 800; color: var(--arce-navy);
+      margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    .check-item-row {
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0;
+      font-size: 0.78rem; border-bottom: 1px dashed #e2e8f0;
+    }
+    .check-item-row input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+
+    .text-red { color: var(--arce-red); font-weight: 700; }
+    .text-green { color: #15803d; font-weight: 700; }
+    .text-orange { color: var(--arce-orange); font-weight: 700; }
 
     #loadingOverlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(255,255,255,0.85);
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      font-weight: 800;
-      color: var(--arce-navy);
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(255,255,255,0.85); display: none; flex-direction: column;
+      justify-content: center; align-items: center; z-index: 2000; font-weight: 800; color: var(--arce-navy);
     }
   </style>
 </head>
 <body>
 
-  <!-- SPINNER SYNCHRO -->
+  <!-- SPINNER DE SINCRONIZACIÓN -->
   <div id="loadingOverlay">
     <i class="fas fa-spinner fa-spin fa-2x" style="color: var(--arce-orange); margin-bottom: 0.8rem;"></i>
     <span>Sincronizando con Google Sheets...</span>
@@ -443,7 +332,6 @@
   <header class="main-header">
     <div class="brand-container">
       <div class="logo-box">
-        <!-- Reemplazar src por la URL de la marca de Transporte Arce -->
         <strong style="color: var(--arce-navy); font-size: 1.1rem; letter-spacing: -0.5px;">ARCE Hnos.</strong>
       </div>
       <div class="brand-text">
@@ -452,13 +340,13 @@
       </div>
     </div>
     <div class="header-controls">
-      <button class="btn btn-orange" onclick="openNewModal()"><i class="fas fa-user-plus"></i> + Nuevo Fletero</button>
+      <button class="btn btn-orange" onclick="openAltaModal()"><i class="fas fa-user-plus"></i> + Nuevo Fletero</button>
       <button class="btn btn-navy" onclick="addNewStage()"><i class="fas fa-plus-square"></i> + Nueva Etapa</button>
       <button class="btn btn-icon" onclick="fetchData()"><i class="fas fa-sync-alt"></i></button>
     </div>
   </header>
 
-  <!-- METRICAS Y CONTACTOS -->
+  <!-- MÉTRICAS Y CONTACTOS -->
   <div class="info-bar">
     <div class="metrics-row">
       <div>Total Fleteros: <span class="metric-value" id="mTotal">0</span></div>
@@ -483,71 +371,99 @@
   </div>
 
   <!-- PIPELINE BOARD -->
-  <div class="pipeline-grid" id="pipelineGrid">
-    <!-- Renderizado dinámico -->
-  </div>
+  <div class="pipeline-grid" id="pipelineGrid"></div>
 
-  <!-- MODAL DOCUMENTAL -->
-  <div class="modal-overlay" id="docModal">
+  <!-- MODAL DE ALTA Y EDICIÓN -->
+  <div class="modal-overlay" id="fleteroModal">
     <div class="modal-box">
       <div class="modal-head">
-        <h3 id="modalTitle">Checklist Documental</h3>
-        <button style="background:none; border:none; color:white; cursor:pointer;" onclick="closeModal('docModal')"><i class="fas fa-times"></i></button>
+        <h3 id="modalTitle">Gestión de Recurso Fletero</h3>
+        <button style="background:none; border:none; color:white; cursor:pointer;" onclick="closeModal('fleteroModal')"><i class="fas fa-times fa-lg"></i></button>
       </div>
       <div class="modal-body">
-        <div id="modalInfo"></div>
-        <h4 style="margin-top:1rem; color:var(--arce-navy); border-bottom:2px solid var(--arce-orange); padding-bottom:0.3rem;">Estado de Documentación exigida por Tenaris</h4>
-        <div class="checklist-grid" id="checklistArea"></div>
-        <div style="margin-top: 1.2rem; text-align: right;">
-          <button class="btn btn-orange" onclick="saveDocState()"><i class="fas fa-save"></i> Guardar Cambios</button>
-        </div>
-      </div>
-    </div>
-  </div>
+        <form id="fleteroForm" onsubmit="saveFletero(event)">
+          <!-- SECCIÓN 1: DATOS GENERALES -->
+          <div class="form-section-title">1. DATOS DEL RECURSO & TRANSPORTISTA</div>
+          
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Nombre Completo Chofer *</label>
+              <input type="text" id="fNombreChofer" placeholder="Ej: Goldman Adrian" required>
+            </div>
+            <div class="form-group">
+              <label>DNI del Chofer *</label>
+              <input type="text" id="fDniChofer" placeholder="Ej: 31.204.889" required>
+            </div>
+          </div>
 
-  <!-- MODAL NUEVO FLETERO -->
-  <div class="modal-overlay" id="newModal">
-    <div class="modal-box" style="max-width:450px;">
-      <div class="modal-head">
-        <h3>Alta de Nuevo Fletero</h3>
-        <button style="background:none; border:none; color:white; cursor:pointer;" onclick="closeModal('newModal')"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="modal-body">
-        <form id="newForm" onsubmit="createFletero(event)">
-          <div style="margin-bottom:0.6rem;">
-            <label style="font-size:0.78rem; font-weight:700;">Razón Social / Transporte *</label>
-            <input type="text" id="nRazon" required style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
-          </div>
-          <div style="margin-bottom:0.6rem;">
-            <label style="font-size:0.78rem; font-weight:700;">CUIT *</label>
-            <input type="text" id="nCuit" required placeholder="30-XXXXXXXX-X" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
-          </div>
-          <div style="margin-bottom:0.6rem;">
-            <label style="font-size:0.78rem; font-weight:700;">Nombre y Apellido Chofer</label>
-            <input type="text" id="nChofer" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
-          </div>
-          <div style="margin-bottom:0.6rem;">
-            <label style="font-size:0.78rem; font-weight:700;">DNI Chofer</label>
-            <input type="text" id="nDni" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
-          </div>
-          <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem;">
-            <div style="flex:1;">
-              <label style="font-size:0.78rem; font-weight:700;">Patente Tractor</label>
-              <input type="text" id="nTractor" placeholder="AA123CD" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Razón Social / Transportista *</label>
+              <input type="text" id="fRazonSocial" placeholder="Ej: TRANSGOLD" required>
             </div>
-            <div style="flex:1;">
-              <label style="font-size:0.78rem; font-weight:700;">Patente Semi</label>
-              <input type="text" id="nSemi" placeholder="AC456GH" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+            <div class="form-group">
+              <label>CUIT Transportista *</label>
+              <input type="text" id="fCuit" placeholder="Ej: 30-68945120-4" required>
             </div>
           </div>
-          <button type="submit" class="btn btn-orange" style="width:100%; justify-content:center;"><i class="fas fa-check-circle"></i> Confirmar Alta</button>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Patente Tractor *</label>
+              <input type="text" id="fPatenteTractor" placeholder="Ej: AH170DQ" required>
+            </div>
+            <div class="form-group">
+              <label>Patente Semirremolque *</label>
+              <input type="text" id="fPatenteSemi" placeholder="Ej: AE380DB" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label>Etapa Actual en el Pipeline</label>
+            <select id="fEtapa"></select>
+          </div>
+
+          <!-- SECCIÓN 2: CHECKLIST DOCUMENTAL DUAL -->
+          <div class="form-section-title">2. VERIFICACIÓN DE LEGAJO DOCUMENTAL (MARCAR APROBADOS)</div>
+          
+          <div class="doc-dual-container">
+            <!-- COLUMNA CHOFER -->
+            <div class="doc-column-box">
+              <div class="doc-column-header"><i class="fas fa-user-check" style="color:var(--arce-blue);"></i> Documentación Chofer</div>
+              
+              <div class="check-item-row"><input type="checkbox" id="chk_dni_chofer"> <label for="chk_dni_chofer">DNI Frente y Dorso</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_licencia"> <label for="chk_licencia">Licencia Habilitante LINTI</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_art"> <label for="chk_art" class="text-red">ART (Cláusula Tenaris)</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_f931"> <label for="chk_f931">F-931 / Pago Monotributo</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_haberes"> <label for="chk_haberes">Recibo de Haberes</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_sindicato"> <label for="chk_sindicato">Pago Sindicato</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_seme"> <label for="chk_seme" class="text-green">Apto Médico SEME</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_tubos"> <label for="chk_tubos" class="text-orange">Examen Cargas Tubulares</label></div>
+            </div>
+
+            <!-- COLUMNA VEHÍCULO -->
+            <div class="doc-column-box">
+              <div class="doc-column-header"><i class="fas fa-truck-moving" style="color:var(--arce-orange);"></i> Documentación Vehículo</div>
+              
+              <div class="check-item-row"><input type="checkbox" id="chk_cedulas"> <label for="chk_cedulas">Cédulas Tractor/Semi</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_vtv"> <label for="chk_vtv">VTV / RTO Vigente</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_poliza_seguro"> <label for="chk_poliza_seguro" class="text-red">Póliza Seguro (Cláusula Tenaris)</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_pago_seguro"> <label for="chk_pago_seguro">Comprobante Pago Seguro</label></div>
+              <div class="check-item-row"><input type="checkbox" id="chk_sicram"> <label for="chk_sicram">Alta en SICRAM / Exactian</label></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; text-align: right; display: flex; justify-content: flex-end; gap: 0.6rem;">
+            <button type="button" class="btn btn-navy" onclick="closeModal('fleteroModal')">Cancelar</button>
+            <button type="submit" class="btn btn-orange"><i class="fas fa-save"></i> Guardar Fletero</button>
+          </div>
         </form>
       </div>
     </div>
   </div>
 
   <script>
-    // BACKEND URL (APPS SCRIPT)
+    // BACKEND URL APPS SCRIPT
     const API_URL = "https://script.google.com/macros/s/AKfycbzJJBkG1CNR_eY26UYeSpXtGRtfpxBpwrDm8FGvP07if_86H03D0LKoGYUsXO6lNo7t/exec";
 
     let stages = [
@@ -557,70 +473,117 @@
       "4. Habilitado Tenaris"
     ];
 
-    const REQUIRED_DOCS = [
-      { key: "seme", label: "Apto SEME" },
-      { key: "tubos", label: "Curso Tubos (UTN)" },
-      { key: "art", label: "ART C/ Tenaris" },
-      { key: "vtv", label: "VTV/RTO Día" },
-      { key: "sicram", label: "Alta SICRAM" }
+    const ALL_DOC_KEYS = [
+      "dni_chofer", "licencia", "art", "f931", "haberes", "sindicato", "seme", "tubos",
+      "cedulas", "vtv", "poliza_seguro", "pago_seguro", "sicram"
     ];
 
-    // DATOS INICIALES EXTRAÍDOS DEL PADRÓN REAL
+    // CARGA DE DATOS INICIALES REALES DEL PADRÓN DE LA IMAGEN
     let fleteros = [
       {
-        id: "FLT-001",
-        razonSocial: "Don Carlos SRL",
-        cuit: "30-68945120-4",
-        choferNombre: "Marcelo Fernández",
-        choferDni: "31.204.889",
-        patenteTractor: "PBZ608",
-        patenteSemi: "AC456GH",
+        id: "FLT-101",
+        choferNombre: "Goldman Adrian",
+        choferDni: "30.112.456",
+        razonSocial: "TRANSGOLD",
+        cuit: "30-71122334-9",
+        patenteTractor: "AH170DQ",
+        patenteSemi: "AE380DB",
         etapa: "2. Revisión Admin Arce",
-        docsState: { seme: true, tubos: true, art: true, vtv: false, sicram: false }
+        docsState: { exactian: true, seme: true, tubos: true, art: true, vtv: false, sicram: true }
       },
       {
-        id: "FLT-002",
-        razonSocial: "Don Carlos SRL",
-        cuit: "30-68945120-4",
-        choferNombre: "Diego",
-        choferDni: "32.115.480",
-        patenteTractor: "AF123JK",
-        patenteSemi: "AC789LM",
+        id: "FLT-102",
+        choferNombre: "Barrios Alejandro Martin",
+        choferDni: "32.445.890",
+        razonSocial: "TRANSGOLD",
+        cuit: "30-71122334-9",
+        patenteTractor: "AH835OT",
+        patenteSemi: "AH511QI",
         etapa: "1. Postulación / Recepción",
-        docsState: { seme: false, tubos: false, art: true, vtv: true, sicram: false }
+        docsState: { art: true, vtv: true, sicram: true }
       },
       {
-        id: "FLT-003",
-        razonSocial: "César Rivarola",
-        cuit: "20-28456123-8",
-        choferNombre: "César Rivarola",
-        choferDni: "28.456.123",
-        patenteTractor: "HPG716",
-        patenteSemi: "AA123CD",
-        etapa: "4. Habilitado Tenaris",
-        docsState: { seme: true, tubos: true, art: true, vtv: true, sicram: true }
-      },
-      {
-        id: "FLT-004",
-        razonSocial: "Cristian Carrera",
-        cuit: "20-30123456-9",
-        choferNombre: "Cristian Carrera",
-        choferDni: "30.123.456",
-        patenteTractor: "AB987YX",
-        patenteSemi: "AC654PO",
+        id: "FLT-103",
+        choferNombre: "Barattini Emanuel",
+        choferDni: "33.889.123",
+        razonSocial: "Concepcion Group",
+        cuit: "30-68945120-4",
+        patenteTractor: "AE523WX",
+        patenteSemi: "AE790XQ",
         etapa: "3. Carga Exactian / SICRAM",
-        docsState: { seme: true, tubos: true, art: true, vtv: true, sicram: false }
+        docsState: { exactian: true, sicram: true, seme: true, tubos: true, art: false }
+      },
+      {
+        id: "FLT-104",
+        choferNombre: "Martinez Jose Luis",
+        choferDni: "29.778.345",
+        razonSocial: "RACCA",
+        cuit: "30-54123987-1",
+        patenteTractor: "AD737DS",
+        patenteSemi: "GKC465",
+        etapa: "1. Postulación / Recepción",
+        docsState: { art: true, vtv: true }
+      },
+      {
+        id: "FLT-105",
+        choferNombre: "Lopez Franco Julio",
+        choferDni: "34.123.789",
+        razonSocial: "ARNDT, HUGO ALEJANDRO",
+        cuit: "20-25667889-3",
+        patenteTractor: "GVF077",
+        patenteSemi: "LCN161",
+        etapa: "1. Postulación / Recepción",
+        docsState: { sicram: true, art: true }
+      },
+      {
+        id: "FLT-106",
+        choferNombre: "Romero Nestor Eduardo",
+        choferDni: "28.990.112",
+        razonSocial: "GADEA",
+        cuit: "20-28990112-5",
+        patenteTractor: "AB055UU",
+        patenteSemi: "AC952RO",
+        etapa: "1. Postulación / Recepción",
+        docsState: { vtv: true, art: true }
+      },
+      {
+        id: "FLT-107",
+        choferNombre: "Britos Juan Manuel",
+        choferDni: "31.556.778",
+        razonSocial: "ALTIVANS SRL",
+        cuit: "30-71234567-8",
+        patenteTractor: "AG353PU",
+        patenteSemi: "GJU867",
+        etapa: "2. Revisión Admin Arce",
+        docsState: { seme: true, tubos: true, art: true, vtv: true }
+      },
+      {
+        id: "FLT-108",
+        choferNombre: "Britos Javier Gaston",
+        choferDni: "33.221.443",
+        razonSocial: "ALTIVANS SRL",
+        cuit: "30-71234567-8",
+        patenteTractor: "AG353PU",
+        patenteSemi: "GJU867",
+        etapa: "1. Postulación / Recepción",
+        docsState: { art: true }
       }
     ];
 
-    let currentSelectedId = null;
+    let currentEditingId = null;
 
     window.onload = function() {
       if (localStorage.getItem("arce_fleteros_cache")) {
         fleteros = JSON.parse(localStorage.getItem("arce_fleteros_cache"));
       }
+      populateStageDropdown();
       fetchData();
     };
+
+    function populateStageDropdown() {
+      const select = document.getElementById("fEtapa");
+      select.innerHTML = stages.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
 
     async function fetchData() {
       showLoading(true);
@@ -632,7 +595,7 @@
           localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
         }
       } catch (err) {
-        console.warn("Utilizando datos locales/padrón inicial por falta de servidor remoto.");
+        console.warn("Servidor offline, utilizando datos precargados del padrón.");
       } finally {
         showLoading(false);
         renderBoard();
@@ -641,9 +604,9 @@
 
     function calculateProgress(docsState) {
       if (!docsState) return 0;
-      let ok = 0;
-      REQUIRED_DOCS.forEach(d => { if (docsState[d.key] === true) ok++; });
-      return Math.round((ok / REQUIRED_DOCS.length) * 100);
+      let okCount = 0;
+      ALL_DOC_KEYS.forEach(k => { if (docsState[k] === true) okCount++; });
+      return Math.round((okCount / ALL_DOC_KEYS.length) * 100);
     }
 
     function renderBoard() {
@@ -673,16 +636,22 @@
     function createCardHTML(f) {
       const prog = calculateProgress(f.docsState);
       const isComplete = prog === 100;
-      
-      const pillsHTML = REQUIRED_DOCS.map(d => {
-        const ok = f.docsState && f.docsState[d.key] === true;
-        return `<span class="doc-pill ${ok ? 'ok' : ''}">${d.label} ${ok ? '✓' : '✗'}</span>`;
+
+      const pills = [
+        { key: "seme", label: "SEME" },
+        { key: "tubos", label: "TUBOS" },
+        { key: "art", label: "ART" }
+      ];
+
+      const pillsHTML = pills.map(p => {
+        const ok = f.docsState && f.docsState[p.key] === true;
+        return `<span class="doc-pill ${ok ? 'ok' : ''}">${p.label} ${ok ? '✓' : '✗'}</span>`;
       }).join('');
 
       return `
-        <div class="card" draggable="true" ondragstart="drag(event, '${f.id}')" onclick="openDocModal('${f.id}')">
+        <div class="card" draggable="true" ondragstart="drag(event, '${f.id}')" onclick="editFletero('${f.id}')">
           <div class="card-top">
-            <div class="card-name">${f.choferNombre || f.razonSocial}</div>
+            <div class="card-name">${f.choferNombre || 'Sin Nombre'}</div>
             <span class="pct-badge ${isComplete ? 'complete' : ''}">${prog}%</span>
           </div>
           <div class="card-sub">${f.razonSocial}</div>
@@ -698,8 +667,7 @@
           <div class="pills-row">${pillsHTML}</div>
           <div class="card-actions">
             <div class="action-btns">
-              <i class="fas fa-eye" title="Ver legajo"></i>
-              <i class="fas fa-edit" title="Editar"></i>
+              <i class="fas fa-edit" title="Ver / Editar" onclick="event.stopPropagation(); editFletero('${f.id}')"></i>
               <i class="fas fa-trash" style="color:#ef4444;" title="Eliminar" onclick="event.stopPropagation(); deleteFletero('${f.id}')"></i>
             </div>
             <div>
@@ -711,70 +679,87 @@
       `;
     }
 
-    function updateMetrics() {
-      document.getElementById("mTotal").innerText = fleteros.length;
-      document.getElementById("mProcess").innerText = fleteros.filter(f => f.etapa !== "4. Habilitado Tenaris").length;
-      document.getElementById("mReady").innerText = fleteros.filter(f => f.etapa === "4. Habilitado Tenaris").length;
+    function openAltaModal() {
+      currentEditingId = null;
+      document.getElementById("modalTitle").innerText = "Alta de Nuevo Fletero";
+      document.getElementById("fleteroForm").reset();
+      document.getElementById("fEtapa").value = stages[0];
+      document.getElementById("fleteroModal").style.display = "flex";
     }
 
-    function openDocModal(id) {
-      currentSelectedId = id;
+    function editFletero(id) {
+      currentEditingId = id;
       const f = fleteros.find(item => item.id === id);
       if (!f) return;
 
-      document.getElementById("modalTitle").innerText = `${f.choferNombre} — Legajo Documental`;
-      document.getElementById("modalInfo").innerHTML = `
-        <div style="font-size:0.8rem; background:#f1f5f9; padding:0.6rem; border-radius:6px; display:grid; grid-template-columns:1fr 1fr; gap:0.4rem;">
-          <div><b>Empresa:</b> ${f.razonSocial}</div>
-          <div><b>CUIT:</b> ${f.cuit}</div>
-          <div><b>Equipos:</b> ${f.patenteTractor} / ${f.patenteSemi}</div>
-          <div><b>Estado Actual:</b> ${f.etapa}</div>
-        </div>
-      `;
+      document.getElementById("modalTitle").innerText = `Editar Fletero: ${f.choferNombre}`;
+      document.getElementById("fNombreChofer").value = f.choferNombre || '';
+      document.getElementById("fDniChofer").value = f.choferDni || '';
+      document.getElementById("fRazonSocial").value = f.razonSocial || '';
+      document.getElementById("fCuit").value = f.cuit || '';
+      document.getElementById("fPatenteTractor").value = f.patenteTractor || '';
+      document.getElementById("fPatenteSemi").value = f.patenteSemi || '';
+      document.getElementById("fEtapa").value = f.etapa || stages[0];
 
-      const area = document.getElementById("checklistArea");
-      area.innerHTML = "";
-
-      REQUIRED_DOCS.forEach(d => {
-        const ok = f.docsState && f.docsState[d.key] === true;
-        const item = document.createElement("div");
-        item.className = "check-item";
-        item.innerHTML = `
-          <span><b>${d.label}</b></span>
-          <input type="checkbox" id="chk_${d.key}" ${ok ? 'checked' : ''} style="width:18px; height:18px;">
-        `;
-        area.appendChild(item);
+      ALL_DOC_KEYS.forEach(k => {
+        const chk = document.getElementById(`chk_${k}`);
+        if (chk) chk.checked = f.docsState && f.docsState[k] === true;
       });
 
-      document.getElementById("docModal").style.display = "flex";
+      document.getElementById("fleteroModal").style.display = "flex";
     }
 
-    async function saveDocState() {
-      const f = fleteros.find(item => item.id === currentSelectedId);
-      if (!f) return;
+    async function saveFletero(e) {
+      e.preventDefault();
 
-      const newState = {};
-      REQUIRED_DOCS.forEach(d => {
-        newState[d.key] = document.getElementById(`chk_${d.key}`).checked;
+      const docsState = {};
+      ALL_DOC_KEYS.forEach(k => {
+        const chk = document.getElementById(`chk_${k}`);
+        if (chk) docsState[k] = chk.checked;
       });
 
-      f.docsState = newState;
+      const prog = calculateProgress(docsState);
+
+      const payload = {
+        choferNombre: document.getElementById("fNombreChofer").value,
+        choferDni: document.getElementById("fDniChofer").value,
+        razonSocial: document.getElementById("fRazonSocial").value,
+        cuit: document.getElementById("fCuit").value,
+        patenteTractor: document.getElementById("fPatenteTractor").value,
+        patenteSemi: document.getElementById("fPatenteSemi").value,
+        etapa: document.getElementById("fEtapa").value,
+        progreso: prog,
+        docsState: docsState
+      };
+
+      closeModal('fleteroModal');
+      showLoading(true);
+
+      if (currentEditingId) {
+        const f = fleteros.find(item => item.id === currentEditingId);
+        if (f) Object.assign(f, payload);
+      } else {
+        payload.id = "FLT-" + new Date().getTime();
+        fleteros.push(payload);
+      }
+
       localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
-      closeModal("docModal");
       renderBoard();
 
-      // Sincronización en segundo plano
       try {
         await fetch(API_URL, {
           method: "POST",
           body: JSON.stringify({
-            action: "UPDATE_DOCS",
-            id: f.id,
-            progreso: calculateProgress(newState),
-            docsState: newState
+            action: currentEditingId ? "UPDATE_DOCS" : "CREATE",
+            ...payload,
+            id: currentEditingId || payload.id
           })
         });
-      } catch (e) { console.warn("Sincronización remota pendiente."); }
+      } catch (err) {
+        console.warn("Cambios guardados localmente. Servidor remoto desconectado.");
+      } finally {
+        showLoading(false);
+      }
     }
 
     function moveStage(id, dir) {
@@ -795,46 +780,32 @@
           method: "POST",
           body: JSON.stringify({ action: "UPDATE_STAGE", id: id, etapa: stage })
         });
-      } catch (e) { console.warn("Sincronización remota pendiente."); }
-    }
-
-    function createFletero(e) {
-      e.preventDefault();
-      const newF = {
-        id: "FLT-" + new Date().getTime(),
-        razonSocial: document.getElementById("nRazon").value,
-        cuit: document.getElementById("nCuit").value,
-        choferNombre: document.getElementById("nChofer").value,
-        choferDni: document.getElementById("nDni").value,
-        patenteTractor: document.getElementById("nTractor").value,
-        patenteSemi: document.getElementById("nSemi").value,
-        etapa: stages[0],
-        docsState: { seme: false, tubos: false, art: false, vtv: false, sicram: false }
-      };
-
-      fleteros.push(newF);
-      localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
-      closeModal("newModal");
-      renderBoard();
+      } catch (e) { console.warn("Sincronización de etapa diferida."); }
     }
 
     function deleteFletero(id) {
-      if (confirm("¿Desea quitar a este fletero del pipeline?")) {
+      if (confirm("¿Desea eliminar este registro del pipeline?")) {
         fleteros = fleteros.filter(f => f.id !== id);
         localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
         renderBoard();
       }
     }
 
+    function updateMetrics() {
+      document.getElementById("mTotal").innerText = fleteros.length;
+      document.getElementById("mProcess").innerText = fleteros.filter(f => f.etapa !== "4. Habilitado Tenaris").length;
+      document.getElementById("mReady").innerText = fleteros.filter(f => f.etapa === "4. Habilitado Tenaris").length;
+    }
+
     function addNewStage() {
       const st = prompt("Ingrese el nombre de la nueva etapa:");
       if (st && !stages.includes(st)) {
         stages.push(st);
+        populateStageDropdown();
         renderBoard();
       }
     }
 
-    // DRAG AND DROP
     function drag(e, id) { e.dataTransfer.setData("text", id); }
     function allowDrop(e) { e.preventDefault(); }
 
@@ -858,7 +829,6 @@
     }
 
     function closeModal(id) { document.getElementById(id).style.display = "none"; }
-    function openNewModal() { document.getElementById("newModal").style.display = "flex"; }
     function showLoading(s) { document.getElementById("loadingOverlay").style.display = s ? "flex" : "none"; }
   </script>
 </body>
