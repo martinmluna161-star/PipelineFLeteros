@@ -1,997 +1,865 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pipeline de Alta Documental Fleteros — Tenaris | Transporte Arce Hnos.</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        arce: {
-                            dark: '#0b192c',
-                            card: '#112239',
-                            navy: '#1e3e62',
-                            blue: '#0056b3',
-                            red: '#d9232e',
-                            orange: '#f26522',
-                            lightBg: '#f4f6f9'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f4f6f9;
-        }
-        .kanban-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .kanban-scroll::-webkit-scrollbar-track {
-            background: #e2e8f0;
-            border-radius: 4px;
-        }
-        .kanban-scroll::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        .kanban-scroll::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        .dragging {
-            opacity: 0.5;
-            transform: scale(0.98);
-        }
-        .drag-over {
-            background-color: #e2e8f0 !important;
-            border: 2px dashed #0056b3 !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipeline de Alta Documental Fleteros | Transporte Arce Hnos. S.A.</title>
+  <!-- FontAwesome e Inter Font -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --arce-navy: #091e36;
+      --arce-blue: #0056b3;
+      --arce-orange: #f26522;
+      --arce-red: #d9232e;
+      --bg-light: #f4f6f9;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --success: #10b981;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* HEADER CORPORATIVO IDÉNTICO */
+    header.main-header {
+      background: var(--arce-navy);
+      color: white;
+      padding: 1.2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-bottom: 4px solid var(--arce-red);
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .logo-box {
+      background: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-box img {
+      height: 38px;
+    }
+
+    .brand-text h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .badge-tenaris {
+      background-color: var(--arce-orange);
+      color: white;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-orange { background-color: var(--arce-orange); color: white; }
+    .btn-orange:hover { background-color: #d85416; }
+    .btn-navy { background-color: #162e4c; color: white; border: 1px solid #2a476c; }
+    .btn-navy:hover { background-color: #203e64; }
+    .btn-icon { background: rgba(255,255,255,0.1); color: white; padding: 0.55rem; }
+    .btn-icon:hover { background: rgba(255,255,255,0.2); }
+
+    /* BARRA DE MÉTRICAS Y CONTACTOS OPERATIVOS */
+    .info-bar {
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.6rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .metrics-row {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .metric-value {
+      background: #e2e8f0;
+      color: var(--arce-navy);
+      padding: 0.1rem 0.5rem;
+      border-radius: 10px;
+      font-weight: 800;
+      margin-left: 0.3rem;
+    }
+
+    .contacts-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-color);
+      padding-top: 0.4rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .contact-item b { color: var(--arce-navy); }
+    .contact-item a { color: var(--arce-blue); text-decoration: none; font-weight: 700; }
+
+    /* FILTROS DE BÚSQUEDA */
+    .filter-bar {
+      padding: 1rem 2.5rem 0.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 320px;
+    }
+
+    .search-wrapper input {
+      width: 100%;
+      padding: 0.55rem 1rem 0.55rem 2.2rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      font-size: 0.82rem;
+      background: white;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    /* KANBAN PIPELINE */
+    .pipeline-grid {
+      display: flex;
+      gap: 1.2rem;
+      padding: 1rem 2.5rem 2rem 2.5rem;
+      overflow-x: auto;
+      align-items: flex-start;
+    }
+
+    .pipeline-col {
+      background: #ebf0f5;
+      border-radius: 10px;
+      width: 310px;
+      min-width: 310px;
+      border: 1px solid #dbe3ed;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .col-header {
+      padding: 0.8rem 1rem;
+      background: white;
+      border-radius: 10px 10px 0 0;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--arce-navy);
+    }
+
+    .col-count {
+      background: #e2e8f0;
+      color: var(--text-muted);
+      border-radius: 12px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .col-cards {
+      padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      min-height: 200px;
+    }
+
+    /* CARD DESIGN IDÉNTICO */
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 0.9rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      border: 1px solid var(--border-color);
+      cursor: grab;
+      position: relative;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-name {
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--arce-navy);
+    }
+
+    .pct-badge {
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.15rem 0.4rem;
+      border-radius: 10px;
+    }
+
+    .pct-badge.complete {
+      background: #d1fae5;
+      color: #047857;
+    }
+
+    .card-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .card-grid {
+      background: #f8fafc;
+      border: 1px solid #f1f5f9;
+      border-radius: 6px;
+      padding: 0.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .card-grid b { color: var(--arce-navy); }
+
+    .progress-track {
+      background: #e2e8f0;
+      height: 4px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.6rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--arce-orange);
+      border-radius: 4px;
+    }
+
+    .pills-row {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+    }
+
+    .doc-pill {
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid #fca5a5;
+      color: #b91c1c;
+      background: #fef2f2;
+    }
+
+    .doc-pill.ok {
+      border-color: #86efac;
+      color: #15803d;
+      background: #f0fdf4;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .action-btns i {
+      cursor: pointer;
+      margin-right: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .action-btns i:hover { color: var(--arce-blue); }
+
+    .nav-arrow {
+      background: var(--arce-blue);
+      color: white;
+      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+    }
+
+    /* MODAL GENERAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(9, 30, 54, 0.7);
+      backdrop-filter: blur(3px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: white;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 700px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-head {
+      background: var(--arce-navy);
+      color: white;
+      padding: 1rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-body { padding: 1.2rem; }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    .check-item {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 0.6rem;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    #loadingOverlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(255,255,255,0.85);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      font-weight: 800;
+      color: var(--arce-navy);
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col text-slate-800">
+<body>
 
-    <!-- SYNC / LOADING OVERLAY -->
-    <div id="syncIndicator" class="fixed bottom-4 right-4 bg-arce-dark text-white px-3 py-2 rounded-lg text-xs font-bold shadow-lg flex items-center gap-2 z-50 transition-opacity duration-300 opacity-0 pointer-events-none border border-slate-700">
-        <i class="fa-solid fa-rotate fa-spin text-arce-orange" id="syncIcon"></i>
-        <span id="syncText">Sincronizando con Google Sheets...</span>
+  <!-- SPINNER SYNCHRO -->
+  <div id="loadingOverlay">
+    <i class="fas fa-spinner fa-spin fa-2x" style="color: var(--arce-orange); margin-bottom: 0.8rem;"></i>
+    <span>Sincronizando con Google Sheets...</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="brand-container">
+      <div class="logo-box">
+        <!-- Reemplazar src por la URL de la marca de Transporte Arce -->
+        <strong style="color: var(--arce-navy); font-size: 1.1rem; letter-spacing: -0.5px;">ARCE Hnos.</strong>
+      </div>
+      <div class="brand-text">
+        <h1>Pipeline de Alta Documental <span class="badge-tenaris">TENARIS</span></h1>
+        <p>Torre de Control & Calificación de Recursos Fleteros</p>
+      </div>
     </div>
-
-    <!-- HEADER / NAVIGATION BRANDING (MATCHING SCREENSHOT) -->
-    <header class="bg-arce-dark text-white shadow-lg border-b-4 border-arce-red sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
-            
-            <!-- BRAND LOGO & TITLE -->
-            <div class="flex items-center gap-4">
-                <div class="bg-white p-2 rounded-lg shadow-md flex items-center justify-center w-40 h-12">
-                    <svg class="w-full h-full" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
-                        <g>
-                            <rect x="75" y="8" width="35" height="5" rx="2.5" fill="#f26522"/>
-                            <rect x="65" y="17" width="45" height="5" rx="2.5" fill="#f26522"/>
-                            <rect x="55" y="26" width="55" height="5" rx="2.5" fill="#f26522"/>
-                            <circle cx="132" cy="20" r="14" stroke="#d9232e" stroke-width="6" fill="none"/>
-                            <text x="32" y="62" font-family="'Segoe UI', Arial, sans-serif" font-weight="900" font-size="32" fill="#0e2240">ARCE Hnos.</text>
-                            <text x="52" y="80" font-family="'Segoe UI', Arial, sans-serif" font-weight="600" font-size="14" fill="#0e2240">Operador Logístico</text>
-                        </g>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                        Pipeline de Alta Documental <span class="bg-arce-orange text-xs text-white uppercase px-2 py-0.5 rounded-full font-bold">TENARIS</span>
-                    </h1>
-                    <p class="text-xs text-slate-300">Torre de Control & Calificación de Recursos Fleteros</p>
-                </div>
-            </div>
-
-            <!-- ACTION BUTTONS -->
-            <div class="flex items-center flex-wrap gap-2">
-                <button onclick="openModal('modalFletero')" class="bg-arce-orange hover:bg-orange-600 text-white font-bold text-xs sm:text-sm px-3.5 py-2 rounded-lg transition duration-200 flex items-center gap-2 shadow">
-                    <i class="fa-solid fa-user-plus"></i> + Nuevo Fletero
-                </button>
-                <button onclick="openModal('modalStage')" class="bg-arce-navy hover:bg-slate-700 text-white font-bold text-xs sm:text-sm px-3.5 py-2 rounded-lg transition duration-200 flex items-center gap-2 border border-slate-600">
-                    <i class="fa-solid fa-folder-plus"></i> + Nueva Etapa
-                </button>
-                <button onclick="syncWithSheets()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-2.5 py-2 rounded-lg border border-slate-600" title="Sincronizar con Google Sheets">
-                    <i class="fa-solid fa-rotate"></i>
-                </button>
-                <button onclick="exportData()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-2.5 py-2 rounded-lg border border-slate-600" title="Exportar Backup JSON">
-                    <i class="fa-solid fa-download"></i>
-                </button>
-                <button onclick="importDataPrompt()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-2.5 py-2 rounded-lg border border-slate-600" title="Importar Backup JSON">
-                    <i class="fa-solid fa-upload"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- METRICS & OPERATIONAL CONTACTS BAR -->
-    <section class="bg-white border-b border-slate-200 shadow-sm py-2.5 px-4 sm:px-8">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-4 text-xs">
-            
-            <!-- KPIS METRICS -->
-            <div class="flex items-center gap-6 w-full lg:w-auto justify-center sm:justify-start">
-                <div class="flex items-center gap-2">
-                    <span class="text-slate-500 font-semibold">Total Fleteros:</span>
-                    <span id="kpi-total" class="font-bold text-slate-900 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-300">0</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-slate-500 font-semibold">En Proceso:</span>
-                    <span id="kpi-process" class="font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">0</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-slate-500 font-semibold">Habilitados 100%:</span>
-                    <span id="kpi-ready" class="font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">0</span>
-                </div>
-            </div>
-
-            <!-- CONTACTS -->
-            <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-slate-600 border-t lg:border-t-0 pt-2 lg:pt-0 w-full lg:w-auto justify-center">
-                <div class="flex items-center gap-1.5">
-                    <i class="fa-solid fa-headset text-arce-orange"></i>
-                    <span class="font-bold text-slate-800">E. Deramo:</span>
-                    <a href="tel:3584363060" class="text-arce-blue hover:underline font-semibold">3584-363060</a>
-                </div>
-                <span class="text-slate-300">|</span>
-                <div class="flex items-center gap-1.5">
-                    <i class="fa-solid fa-file-signature text-arce-blue"></i>
-                    <span class="font-bold text-slate-800">G. Sacchi:</span>
-                    <a href="tel:3585185044" class="text-arce-blue hover:underline font-semibold">3585-185044</a>
-                </div>
-                <span class="text-slate-300">|</span>
-                <div class="flex items-center gap-1.5">
-                    <i class="fa-solid fa-phone-volume text-arce-red"></i>
-                    <span class="font-bold text-slate-800">TMS 24Hs:</span>
-                    <a href="tel:3584818336" class="text-arce-red hover:underline font-extrabold">3584-818336</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- SEARCH & FILTER BAR -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-4 w-full">
-        <div class="flex flex-col sm:flex-row gap-3 items-center justify-between bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
-            <div class="relative w-full sm:w-96">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400"></i>
-                <input type="text" id="searchInput" oninput="renderBoard()" placeholder="Buscar chofer, transportista o patente..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-arce-blue">
-            </div>
-            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-                <span class="text-xs text-slate-500 font-semibold">Filtro Rápido:</span>
-                <select id="filterStatus" onchange="renderBoard()" class="text-xs bg-slate-50 border border-slate-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-arce-blue">
-                    <option value="all">Todos los registros</option>
-                    <option value="incomplete">Incompletos (&lt; 100%)</option>
-                    <option value="complete">Habilitados (100%)</option>
-                </select>
-            </div>
-        </div>
+    <div class="header-controls">
+      <button class="btn btn-orange" onclick="openNewModal()"><i class="fas fa-user-plus"></i> + Nuevo Fletero</button>
+      <button class="btn btn-navy" onclick="addNewStage()"><i class="fas fa-plus-square"></i> + Nueva Etapa</button>
+      <button class="btn btn-icon" onclick="fetchData()"><i class="fas fa-sync-alt"></i></button>
     </div>
+  </header>
 
-    <!-- MAIN KANBAN PIPELINE BOARD -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-8 overflow-x-auto">
-        <div id="pipelineContainer" class="flex items-start gap-4 min-h-[600px] pb-6">
-            <!-- Rendered by JS -->
-        </div>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-arce-dark text-slate-400 text-xs py-4 px-6 border-t border-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <p>Transporte Arce Hnos. S.A. &copy; 2026 — Operación Tenaris Metalmecánica</p>
-            <p class="text-slate-500">Sistema Sincronizado con Google Sheets & Drive Cloud Backend</p>
-        </div>
-    </footer>
-
-    <!-- MODAL 1: NUEVO / EDITAR FLETERO -->
-    <div id="modalFletero" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden my-auto">
-            
-            <div class="bg-arce-dark text-white px-6 py-4 flex justify-between items-center border-b-4 border-arce-orange">
-                <h3 id="modalFleteroTitle" class="font-extrabold text-base flex items-center gap-2">
-                    <i class="fa-solid fa-truck-front text-arce-orange"></i> Alta de Fletero
-                </h3>
-                <button onclick="closeModal('modalFletero')" class="text-slate-400 hover:text-white text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <form id="formFletero" onsubmit="saveFletero(event)" class="p-6 overflow-y-auto flex-1 space-y-6">
-                <input type="hidden" id="fleteroId">
-
-                <!-- DATOS GENERALES -->
-                <div>
-                    <h4 class="text-xs font-bold text-arce-blue uppercase tracking-wider mb-3 border-b border-slate-200 pb-1">
-                        1. Datos del Recurso & Transportista
-                    </h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                        <div>
-                            <label class="block font-bold text-slate-700 mb-1">Nombre Completo Chofer *</label>
-                            <input type="text" id="choferNombre" required placeholder="Ej: Marcelo Fernández" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-arce-blue outline-none">
-                        </div>
-                        <div>
-                            <label class="block font-bold text-slate-700 mb-1">DNI del Chofer *</label>
-                            <input type="text" id="choferDni" required placeholder="Ej: 31.204.889" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-arce-blue outline-none">
-                        </div>
-                        <div>
-                            <label class="block font-bold text-slate-700 mb-1">Razón Social / Transportista *</label>
-                            <input type="text" id="empresaNombre" required placeholder="Ej: Don Carlos SRL" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-arce-blue outline-none">
-                        </div>
-                        <div>
-                            <label class="block font-bold text-slate-700 mb-1">CUIT Transportista *</label>
-                            <input type="text" id="empresaCuit" required placeholder="Ej: 30-68945120-4" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-arce-blue outline-none">
-                        </div>
-                        <div>
-                            <label class="block font-bold text-slate-700 mb-1">Patente Tractor *</label>
-                            <input type="text" id="patenteTractor" required placeholder="Ej: PBZ608" class="w-full p-2 border border-slate-300 rounded-md uppercase focus:ring-2 focus:ring-arce-blue outline-none">
-                        </div>
-                        <div>
-                            <label class="block font-bold text-slate-700 mb-1">Patente Semirremolque *</label>
-                            <input type="text" id="patenteSemi" required placeholder="Ej: AC456GH" class="w-full p-2 border border-slate-300 rounded-md uppercase focus:ring-2 focus:ring-arce-blue outline-none">
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block font-bold text-slate-700 mb-1">Etapa Actual en el Pipeline</label>
-                            <select id="fleteroStageSelect" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-arce-blue outline-none">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CHECKLIST DOCUMENTAL -->
-                <div>
-                    <h4 class="text-xs font-bold text-arce-blue uppercase tracking-wider mb-3 border-b border-slate-200 pb-1">
-                        2. Verificación de Legajo Documental (Marcar aprobados)
-                    </h4>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <!-- CHOFER -->
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                            <span class="font-bold text-slate-800 block mb-2 text-xs border-b pb-1">👤 Documentación Chofer</span>
-                            <div class="space-y-2">
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_dni" class="rounded text-arce-blue"> DNI Frente y Dorso</label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_licencia" class="rounded text-arce-blue"> Licencia Habilitante LINTI</label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_art" class="rounded text-arce-blue"> <span class="font-bold text-arce-red">ART (Cláusula Tenaris)</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_f931" class="rounded text-arce-blue"> F-931 / Pago Monotributo</label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_recibo" class="rounded text-arce-blue"> Recibo de Haberes</label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_sindicato" class="rounded text-arce-blue"> Pago Sindicato</label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_seme" class="rounded text-arce-blue"> <span class="font-bold text-emerald-700">Apto Médico SEME</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_curso_tubos" class="rounded text-arce-blue"> <span class="font-bold text-arce-orange">Examen Cargas Tubulares</span></label>
-                            </div>
-                        </div>
-
-                        <!-- VEHÍCULO -->
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                            <span class="font-bold text-slate-800 block mb-2 text-xs border-b pb-1">🚛 Documentación Vehículo</span>
-                            <div class="space-y-2">
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_cedula" class="rounded text-arce-blue"> Cédulas Tractor/Semi</label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_vtv" class="rounded text-arce-blue"> VTV / RTO Vigente</label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_seguro" class="rounded text-arce-blue"> <span class="font-bold text-arce-red">Póliza Seguro (Cláusula Tenaris)</span></label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_pago_seguro" class="rounded text-arce-blue"> Comprobante Pago Seguro</label>
-                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="doc_sicram" class="rounded text-arce-blue"> Alta en SICRAM / Exactian</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
-                    <button type="button" onclick="closeModal('modalFletero')" class="px-4 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-lg hover:bg-slate-300">
-                        Cancelar
-                    </button>
-                    <button type="submit" class="px-5 py-2 bg-arce-orange text-white text-xs font-bold rounded-lg hover:bg-orange-600 shadow">
-                        Guardar Fletero
-                    </button>
-                </div>
-            </form>
-
-        </div>
+  <!-- METRICAS Y CONTACTOS -->
+  <div class="info-bar">
+    <div class="metrics-row">
+      <div>Total Fleteros: <span class="metric-value" id="mTotal">0</span></div>
+      <div>En Proceso: <span class="metric-value" id="mProcess" style="background:#fef3c7; color:#b45309;">0</span></div>
+      <div>Habilitados 100%: <span class="metric-value" id="mReady" style="background:#d1fae5; color:#047857;">0</span></div>
     </div>
-
-    <!-- MODAL 2: NUEVA ETAPA -->
-    <div id="modalStage" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
-            <div class="bg-arce-dark text-white px-6 py-4 flex justify-between items-center border-b-4 border-arce-blue">
-                <h3 class="font-extrabold text-base flex items-center gap-2">
-                    <i class="fa-solid fa-folder-plus text-arce-blue"></i> Agregar Nueva Etapa
-                </h3>
-                <button onclick="closeModal('modalStage')" class="text-slate-400 hover:text-white text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <form onsubmit="addStage(event)" class="p-6 space-y-4 text-xs">
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Nombre de la Etapa *</label>
-                    <input type="text" id="stageNameInput" required placeholder="Ej: Control Final HSE" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-arce-blue outline-none">
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Color Identificador</label>
-                    <select id="stageColorInput" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-arce-blue outline-none">
-                        <option value="border-slate-400">Gris Standard</option>
-                        <option value="border-blue-500">Azul Operativo</option>
-                        <option value="border-purple-500">Púrpura Revisión</option>
-                        <option value="border-amber-500">Naranja / Amarillo Alerta</option>
-                        <option value="border-emerald-500">Verde Habilitado</option>
-                        <option value="border-red-500">Rojo Rechazado</option>
-                    </select>
-                </div>
-                <div class="pt-4 border-t border-slate-200 flex justify-end gap-2">
-                    <button type="button" onclick="closeModal('modalStage')" class="px-4 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300">
-                        Cancelar
-                    </button>
-                    <button type="submit" class="px-4 py-2 bg-arce-blue text-white font-bold rounded-lg hover:bg-blue-700 shadow">
-                        Crear Etapa
-                    </button>
-                </div>
-            </form>
-        </div>
+    <div class="contacts-row">
+      <div class="contact-item"><i class="fas fa-headset" style="color:var(--arce-orange);"></i> <b>E. Deramo:</b> <a href="tel:3584363060">3584-363060</a></div>
+      <span style="color:#cbd5e1;">|</span>
+      <div class="contact-item"><i class="fas fa-clipboard-check" style="color:var(--arce-blue);"></i> <b>G. Sacchi:</b> <a href="tel:3585185044">3585-185044</a></div>
+      <span style="color:#cbd5e1;">|</span>
+      <div class="contact-item"><i class="fas fa-phone-alt" style="color:var(--arce-red);"></i> <b>TMS 24Hs:</b> <a href="tel:3584618336" style="color:var(--arce-red);">3584-618336</a></div>
     </div>
+  </div>
 
-    <!-- MODAL 3: DETALLE FLETERO -->
-    <div id="modalDetail" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="bg-arce-dark text-white px-6 py-4 flex justify-between items-center border-b-4 border-arce-orange">
-                <div>
-                    <h3 id="detailChofer" class="font-extrabold text-base">Cargando...</h3>
-                    <p id="detailEmpresa" class="text-xs text-slate-300">...</p>
-                </div>
-                <button onclick="closeModal('modalDetail')" class="text-slate-400 hover:text-white text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            
-            <div id="detailContent" class="p-6 overflow-y-auto space-y-4 text-xs">
-            </div>
-
-            <div class="bg-slate-100 px-6 py-3 border-t border-slate-200 flex justify-between items-center">
-                <span id="detailProgressBadge" class="font-bold text-xs">0% Completado</span>
-                <button onclick="closeModal('modalDetail')" class="px-4 py-1.5 bg-slate-800 text-white font-bold text-xs rounded-lg hover:bg-slate-700">
-                    Cerrar Detalle
-                </button>
-            </div>
-        </div>
+  <!-- FILTROS -->
+  <div class="filter-bar">
+    <div class="search-wrapper">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Buscar chofer, transportista o patente..." onkeyup="filterCards()">
     </div>
+  </div>
 
-    <!-- APPLICATION LOGIC JS -->
-    <script>
-        // HARDCODED GOOGLE APPS SCRIPT WEB APP API URL
-        const API_URL = "https://script.google.com/macros/s/AKfycbzJJBkG1CNR_eY26UYeSpXtGRtfpxBpwrDm8FGvP07if_86H03D0LKoGYUsXO6lNo7t/exec";
+  <!-- PIPELINE BOARD -->
+  <div class="pipeline-grid" id="pipelineGrid">
+    <!-- Renderizado dinámico -->
+  </div>
 
-        // STORAGE KEYS FOR LOCAL FALLBACK
-        const STORAGE_KEY_STAGES = 'arce_tenaris_pipeline_stages_v2';
-        const STORAGE_KEY_FLETEROS = 'arce_tenaris_pipeline_fleteros_v2';
+  <!-- MODAL DOCUMENTAL -->
+  <div class="modal-overlay" id="docModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="modalTitle">Checklist Documental</h3>
+        <button style="background:none; border:none; color:white; cursor:pointer;" onclick="closeModal('docModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div id="modalInfo"></div>
+        <h4 style="margin-top:1rem; color:var(--arce-navy); border-bottom:2px solid var(--arce-orange); padding-bottom:0.3rem;">Estado de Documentación exigida por Tenaris</h4>
+        <div class="checklist-grid" id="checklistArea"></div>
+        <div style="margin-top: 1.2rem; text-align: right;">
+          <button class="btn btn-orange" onclick="saveDocState()"><i class="fas fa-save"></i> Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        // DEFAULT STAGES (EXACT MATCH WITH INITIAL IMAGE)
-        const defaultStages = [
-            { id: 'stage-1', name: '1. Postulación / Recepción', color: 'border-slate-400' },
-            { id: 'stage-2', name: '2. Revisión Admin Arce', color: 'border-blue-500' },
-            { id: 'stage-3', name: '3. Carga Exactian / SICRAM', color: 'border-purple-500' },
-            { id: 'stage-4', name: '4. Apto SEME & Examen Tubos', color: 'border-amber-500' },
-            { id: 'stage-5', name: '5. Alta Final & Habilitado', color: 'border-emerald-500' }
-        ];
+  <!-- MODAL NUEVO FLETERO -->
+  <div class="modal-overlay" id="newModal">
+    <div class="modal-box" style="max-width:450px;">
+      <div class="modal-head">
+        <h3>Alta de Nuevo Fletero</h3>
+        <button style="background:none; border:none; color:white; cursor:pointer;" onclick="closeModal('newModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="newForm" onsubmit="createFletero(event)">
+          <div style="margin-bottom:0.6rem;">
+            <label style="font-size:0.78rem; font-weight:700;">Razón Social / Transporte *</label>
+            <input type="text" id="nRazon" required style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+          </div>
+          <div style="margin-bottom:0.6rem;">
+            <label style="font-size:0.78rem; font-weight:700;">CUIT *</label>
+            <input type="text" id="nCuit" required placeholder="30-XXXXXXXX-X" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+          </div>
+          <div style="margin-bottom:0.6rem;">
+            <label style="font-size:0.78rem; font-weight:700;">Nombre y Apellido Chofer</label>
+            <input type="text" id="nChofer" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+          </div>
+          <div style="margin-bottom:0.6rem;">
+            <label style="font-size:0.78rem; font-weight:700;">DNI Chofer</label>
+            <input type="text" id="nDni" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+          </div>
+          <div style="display:flex; gap:0.5rem; margin-bottom:0.8rem;">
+            <div style="flex:1;">
+              <label style="font-size:0.78rem; font-weight:700;">Patente Tractor</label>
+              <input type="text" id="nTractor" placeholder="AA123CD" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+            </div>
+            <div style="flex:1;">
+              <label style="font-size:0.78rem; font-weight:700;">Patente Semi</label>
+              <input type="text" id="nSemi" placeholder="AC456GH" style="width:100%; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-orange" style="width:100%; justify-content:center;"><i class="fas fa-check-circle"></i> Confirmar Alta</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
-        // MOCK DEFAULT DATA
-        const defaultFleteros = [
-            {
-                id: 'f-102',
-                stageId: 'stage-2',
-                chofer: 'Marcelo Fernández',
-                dni: '31.204.889',
-                empresa: 'Don Carlos SRL',
-                cuit: '30-68945120-4',
-                tractor: 'PBZ608',
-                semi: 'AC456GH',
-                docs: {
-                    doc_dni: true, doc_licencia: true, doc_art: false, doc_f931: true,
-                    doc_recibo: false, doc_sindicato: false, doc_seme: false, doc_curso_tubos: false,
-                    doc_cedula: true, doc_vtv: true, doc_seguro: true, doc_pago_seguro: true, doc_sicram: false
-                }
-            },
-            {
-                id: 'f-101',
-                stageId: 'stage-4',
-                chofer: 'Juan José Peralta',
-                dni: '28.945.112',
-                empresa: 'Jengibre SA',
-                cuit: '30-71128945-8',
-                tractor: 'AE219VG',
-                semi: 'AA890EF',
-                docs: {
-                    doc_dni: true, doc_licencia: true, doc_art: true, doc_f931: true,
-                    doc_recibo: true, doc_sindicato: true, doc_seme: false, doc_curso_tubos: true,
-                    doc_cedula: true, doc_vtv: true, doc_seguro: true, doc_pago_seguro: true, doc_sicram: true
-                }
-            },
-            {
-                id: 'f-103',
-                stageId: 'stage-5',
-                chofer: 'Esteban Roberto Aranda',
-                dni: '26.410.950',
-                empresa: 'Aranda José Vicente',
-                cuit: '20-26410950-3',
-                tractor: 'NWR599',
-                semi: 'AB987IJ',
-                docs: {
-                    doc_dni: true, doc_licencia: true, doc_art: true, doc_f931: true,
-                    doc_recibo: true, doc_sindicato: true, doc_seme: true, doc_curso_tubos: true,
-                    doc_cedula: true, doc_vtv: true, doc_seguro: true, doc_pago_seguro: true, doc_sicram: true
-                }
-            }
-        ];
+  <script>
+    // BACKEND URL (APPS SCRIPT)
+    const API_URL = "https://script.google.com/macros/s/AKfycbzJJBkG1CNR_eY26UYeSpXtGRtfpxBpwrDm8FGvP07if_86H03D0LKoGYUsXO6lNo7t/exec";
 
-        // GLOBAL APP STATE
-        let stages = [];
-        let fleteros = [];
-        let draggedFleteroId = null;
+    let stages = [
+      "1. Postulación / Recepción",
+      "2. Revisión Admin Arce",
+      "3. Carga Exactian / SICRAM",
+      "4. Habilitado Tenaris"
+    ];
 
-        const docLabels = {
-            doc_dni: 'DNI Chofer',
-            doc_licencia: 'Licencia Conducir',
-            doc_art: 'ART (Cláusula Tenaris)',
-            doc_f931: 'F-931 / Monotributo',
-            doc_recibo: 'Recibo Sueldo',
-            doc_sindicato: 'Sindicato',
-            doc_seme: 'Apto Médico SEME',
-            doc_curso_tubos: 'Curso Cargas Tubulares',
-            doc_cedula: 'Cédula Tractor/Semi',
-            doc_vtv: 'VTV Vigente',
-            doc_seguro: 'Póliza Seguro',
-            doc_pago_seguro: 'Pago Seguro',
-            doc_sicram: 'Alta SICRAM / Exactian'
-        };
+    const REQUIRED_DOCS = [
+      { key: "seme", label: "Apto SEME" },
+      { key: "tubos", label: "Curso Tubos (UTN)" },
+      { key: "art", label: "ART C/ Tenaris" },
+      { key: "vtv", label: "VTV/RTO Día" },
+      { key: "sicram", label: "Alta SICRAM" }
+    ];
 
-        // INITIALIZE APP
-        async function initApp() {
-            loadFromLocalStorage();
-            renderBoard();
-            await syncWithSheets();
+    // DATOS INICIALES EXTRAÍDOS DEL PADRÓN REAL
+    let fleteros = [
+      {
+        id: "FLT-001",
+        razonSocial: "Don Carlos SRL",
+        cuit: "30-68945120-4",
+        choferNombre: "Marcelo Fernández",
+        choferDni: "31.204.889",
+        patenteTractor: "PBZ608",
+        patenteSemi: "AC456GH",
+        etapa: "2. Revisión Admin Arce",
+        docsState: { seme: true, tubos: true, art: true, vtv: false, sicram: false }
+      },
+      {
+        id: "FLT-002",
+        razonSocial: "Don Carlos SRL",
+        cuit: "30-68945120-4",
+        choferNombre: "Diego",
+        choferDni: "32.115.480",
+        patenteTractor: "AF123JK",
+        patenteSemi: "AC789LM",
+        etapa: "1. Postulación / Recepción",
+        docsState: { seme: false, tubos: false, art: true, vtv: true, sicram: false }
+      },
+      {
+        id: "FLT-003",
+        razonSocial: "César Rivarola",
+        cuit: "20-28456123-8",
+        choferNombre: "César Rivarola",
+        choferDni: "28.456.123",
+        patenteTractor: "HPG716",
+        patenteSemi: "AA123CD",
+        etapa: "4. Habilitado Tenaris",
+        docsState: { seme: true, tubos: true, art: true, vtv: true, sicram: true }
+      },
+      {
+        id: "FLT-004",
+        razonSocial: "Cristian Carrera",
+        cuit: "20-30123456-9",
+        choferNombre: "Cristian Carrera",
+        choferDni: "30.123.456",
+        patenteTractor: "AB987YX",
+        patenteSemi: "AC654PO",
+        etapa: "3. Carga Exactian / SICRAM",
+        docsState: { seme: true, tubos: true, art: true, vtv: true, sicram: false }
+      }
+    ];
+
+    let currentSelectedId = null;
+
+    window.onload = function() {
+      if (localStorage.getItem("arce_fleteros_cache")) {
+        fleteros = JSON.parse(localStorage.getItem("arce_fleteros_cache"));
+      }
+      fetchData();
+    };
+
+    async function fetchData() {
+      showLoading(true);
+      try {
+        const response = await fetch(API_URL);
+        const result = await response.json();
+        if (result.status === "success" && result.data && result.data.length > 0) {
+          fleteros = result.data;
+          localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
         }
-
-        // SYNC WITH GOOGLE SHEETS APPS SCRIPT
-        async function syncWithSheets() {
-            showSyncStatus(true, 'Sincronizando datos...');
-            try {
-                const response = await fetch(API_URL);
-                const result = await response.json();
-                if (result.status === 'success' && Array.isArray(result.data) && result.data.length > 0) {
-                    // Map Sheets rows to fleteros array
-                    fleteros = result.data.map(item => ({
-                        id: item.id || ('f-' + Date.now()),
-                        stageId: mapStageNameToId(item.etapa),
-                        chofer: item.choferNombre || item.razonSocial,
-                        dni: item.choferDni || '-',
-                        empresa: item.razonSocial,
-                        cuit: item.cuit || '-',
-                        tractor: item.patenteTractor || '-',
-                        semi: item.patenteSemi || '-',
-                        driveFolderUrl: item.driveFolderUrl || '',
-                        docs: item.docsState || defaultFleteros[0].docs
-                    }));
-                    saveToLocalStorage();
-                    renderBoard();
-                    showSyncStatus(false, 'Sincronizado con exito');
-                } else {
-                    showSyncStatus(false, 'Modo Local Activo');
-                }
-            } catch (err) {
-                console.warn('Conexión con Apps Script fallida, operando en Modo Local LocalStorage:', err);
-                showSyncStatus(false, 'Modo Local (Offline)');
-            }
-        }
-
-        function mapStageNameToId(stageName) {
-            const match = stages.find(s => s.name.toLowerCase() === (stageName || '').toLowerCase());
-            return match ? match.id : stages[0].id;
-        }
-
-        function showSyncStatus(isBusy, text) {
-            const el = document.getElementById('syncIndicator');
-            const icon = document.getElementById('syncIcon');
-            const textEl = document.getElementById('syncText');
-            
-            textEl.innerText = text;
-            if (isBusy) {
-                icon.className = 'fa-solid fa-rotate fa-spin text-arce-orange';
-            } else {
-                icon.className = 'fa-solid fa-check text-emerald-400';
-            }
-            el.style.opacity = '1';
-            setTimeout(() => { if (!isBusy) el.style.opacity = '0'; }, 3000);
-        }
-
-        // LOCAL STORAGE
-        function loadFromLocalStorage() {
-            const storedStages = localStorage.getItem(STORAGE_KEY_STAGES);
-            const storedFleteros = localStorage.getItem(STORAGE_KEY_FLETEROS);
-
-            stages = storedStages ? JSON.parse(storedStages) : [...defaultStages];
-            fleteros = storedFleteros ? JSON.parse(storedFleteros) : [...defaultFleteros];
-        }
-
-        function saveToLocalStorage() {
-            localStorage.setItem(STORAGE_KEY_STAGES, JSON.stringify(stages));
-            localStorage.setItem(STORAGE_KEY_FLETEROS, JSON.stringify(fleteros));
-            updateKPIs();
-        }
-
-        // PROGRESS CALCULATION
-        function calcProgress(docs) {
-            if (!docs) return 0;
-            const keys = Object.keys(docLabels);
-            let count = 0;
-            keys.forEach(k => { if (docs[k]) count++; });
-            return Math.round((count / keys.length) * 100);
-        }
-
-        // UPDATE KPIS
-        function updateKPIs() {
-            document.getElementById('kpi-total').innerText = fleteros.length;
-            let readyCount = 0;
-            let processCount = 0;
-
-            fleteros.forEach(f => {
-                const prog = calcProgress(f.docs);
-                if (prog === 100) readyCount++;
-                else processCount++;
-            });
-
-            document.getElementById('kpi-ready').innerText = readyCount;
-            document.getElementById('kpi-process').innerText = processCount;
-        }
-
-        // RENDER BOARD (EXACT VISUAL REPRODUCTION OF SCREENSHOT)
-        function renderBoard() {
-            const container = document.getElementById('pipelineContainer');
-            container.innerHTML = '';
-
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-            const filterStatus = document.getElementById('filterStatus').value;
-
-            // Stage select in Modal
-            const stageSelect = document.getElementById('fleteroStageSelect');
-            stageSelect.innerHTML = '';
-            stages.forEach(st => {
-                stageSelect.innerHTML += `<option value="${st.id}">${st.name}</option>`;
-            });
-
-            stages.forEach((stage, index) => {
-                const columnFleteros = fleteros.filter(f => {
-                    if (f.stageId !== stage.id) return false;
-
-                    const matchesSearch = f.chofer.toLowerCase().includes(searchTerm) ||
-                                          f.empresa.toLowerCase().includes(searchTerm) ||
-                                          f.tractor.toLowerCase().includes(searchTerm) ||
-                                          f.semi.toLowerCase().includes(searchTerm) ||
-                                          f.dni.includes(searchTerm);
-
-                    if (!matchesSearch) return false;
-
-                    const prog = calcProgress(f.docs);
-                    if (filterStatus === 'complete' && prog < 100) return false;
-                    if (filterStatus === 'incomplete' && prog === 100) return false;
-
-                    return true;
-                });
-
-                const colEl = document.createElement('div');
-                colEl.className = `w-80 min-w-[320px] bg-slate-200/80 rounded-xl border-t-4 ${stage.color} flex flex-col max-h-[75vh] shadow-sm`;
-                
-                colEl.innerHTML = `
-                    <div class="p-3 bg-white rounded-t-lg border-b border-slate-200 flex justify-between items-center">
-                        <div class="flex items-center gap-2">
-                            <h3 class="font-bold text-xs text-slate-800">${stage.name}</h3>
-                            <span class="bg-slate-100 text-slate-600 font-bold text-[10px] px-2 py-0.5 rounded-full border border-slate-300">
-                                ${columnFleteros.length}
-                            </span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            ${stages.length > 1 ? `
-                                <button onclick="deleteStage('${stage.id}')" title="Eliminar Etapa" class="text-slate-400 hover:text-red-600 text-xs px-1">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
-                            ` : ''}
-                        </div>
-                    </div>
-
-                    <div id="${stage.id}" class="kanban-scroll p-3 flex-1 overflow-y-auto space-y-3 min-h-[150px]"
-                         ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, '${stage.id}')">
-                        ${columnFleteros.length === 0 ? `
-                            <div class="h-28 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center text-slate-400 text-xs font-semibold">
-                                Arrastrar o agregar aquí
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-
-                container.appendChild(colEl);
-
-                // Render Cards
-                const colBody = colEl.querySelector(`#${stage.id}`);
-                columnFleteros.forEach(f => {
-                    const prog = calcProgress(f.docs);
-
-                    const card = document.createElement('div');
-                    card.className = `bg-white rounded-lg p-3 shadow-sm border border-slate-200 hover:shadow-md transition duration-200 cursor-grab relative`;
-                    card.draggable = true;
-                    card.ondragstart = (e) => handleDragStart(e, f.id);
-                    card.ondragend = handleDragEnd;
-
-                    card.innerHTML = `
-                        <!-- CARD HEADER -->
-                        <div class="flex justify-between items-start mb-1">
-                            <div>
-                                <h4 class="font-extrabold text-xs text-slate-900 leading-tight">${f.chofer}</h4>
-                                <span class="text-[11px] font-semibold text-slate-500">${f.empresa}</span>
-                            </div>
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
-                                ${prog}%
-                            </span>
-                        </div>
-
-                        <!-- VEHICLE & DNI INFO GRID -->
-                        <div class="bg-slate-50 p-2 rounded border border-slate-150 text-[11px] grid grid-cols-2 gap-x-2 gap-y-1 mb-2 mt-2">
-                            <div><span class="text-slate-400">DNI:</span> <span class="font-semibold text-slate-700">${f.dni}</span></div>
-                            <div><span class="text-slate-400">CUIT:</span> <span class="font-semibold text-slate-700 truncate block">${f.cuit}</span></div>
-                            <div><span class="text-slate-400">Tractor:</span> <span class="font-bold text-arce-blue">${f.tractor}</span></div>
-                            <div><span class="text-slate-400">Semi:</span> <span class="font-bold text-arce-blue">${f.semi}</span></div>
-                        </div>
-
-                        <!-- PROGRESS BAR -->
-                        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mb-2 border border-slate-200">
-                            <div class="h-full ${prog === 100 ? 'bg-emerald-500' : 'bg-arce-orange'}" style="width: ${prog}%"></div>
-                        </div>
-
-                        <!-- STATUS PILLS (EXACT REPRODUCTION) -->
-                        <div class="flex flex-wrap gap-1 mb-3 text-[9px] font-bold">
-                            <span class="px-1.5 py-0.5 rounded border ${f.docs.doc_seme ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-red-50 text-red-600 border-red-200'}">
-                                SEME ${f.docs.doc_seme ? '✓' : 'X'}
-                            </span>
-                            <span class="px-1.5 py-0.5 rounded border ${f.docs.doc_curso_tubos ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-red-50 text-red-600 border-red-200'}">
-                                TUBOS ${f.docs.doc_curso_tubos ? '✓' : 'X'}
-                            </span>
-                            <span class="px-1.5 py-0.5 rounded border ${f.docs.doc_art ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-red-50 text-red-600 border-red-200'}">
-                                ART ${f.docs.doc_art ? '✓' : 'X'}
-                            </span>
-                        </div>
-
-                        <!-- CARD ACTIONS FOOTER -->
-                        <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-xs text-slate-500">
-                            <div class="flex items-center gap-1.5">
-                                <button onclick="openDetailModal('${f.id}')" class="hover:text-arce-blue px-0.5" title="Ver legajo">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button onclick="editFletero('${f.id}')" class="hover:text-arce-blue px-0.5" title="Editar">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <button onclick="deleteFletero('${f.id}')" class="hover:text-red-600 px-0.5" title="Eliminar">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                                ${f.driveFolderUrl ? `
-                                    <a href="${f.driveFolderUrl}" target="_blank" class="text-arce-blue hover:text-blue-800 px-0.5" title="Carpeta en Google Drive">
-                                        <i class="fa-brands fa-google-drive"></i>
-                                    </a>
-                                ` : ''}
-                            </div>
-
-                            <!-- QUICK STAGE NAVIGATION -->
-                            <div class="flex items-center gap-1">
-                                ${index > 0 ? `
-                                    <button onclick="moveFleteroStage('${f.id}', '${stages[index - 1].id}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded text-[10px]" title="Anterior">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </button>
-                                ` : ''}
-                                ${index < stages.length - 1 ? `
-                                    <button onclick="moveFleteroStage('${f.id}', '${stages[index + 1].id}')" class="bg-arce-blue hover:bg-blue-700 text-white px-1.5 py-0.5 rounded text-[10px]" title="Siguiente">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </button>
-                                ` : ''}
-                            </div>
-                        </div>
-                    `;
-
-                    colBody.appendChild(card);
-                });
-            });
-            updateKPIs();
-        }
-
-        // DRAG & DROP HANDLERS
-        function handleDragStart(e, id) {
-            draggedFleteroId = id;
-            e.target.classList.add('dragging');
-        }
-
-        function handleDragEnd(e) {
-            e.target.classList.remove('dragging');
-            draggedFleteroId = null;
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.currentTarget.classList.add('drag-over');
-        }
-
-        function handleDragLeave(e) {
-            e.currentTarget.classList.remove('drag-over');
-        }
-
-        function handleDrop(e, targetStageId) {
-            e.preventDefault();
-            e.currentTarget.classList.remove('drag-over');
-            if (draggedFleteroId) {
-                moveFleteroStage(draggedFleteroId, targetStageId);
-            }
-        }
-
-        async function moveFleteroStage(fleteroId, newStageId) {
-            const f = fleteros.find(item => item.id === fleteroId);
-            if (f) {
-                f.stageId = newStageId;
-                saveToLocalStorage();
-                renderBoard();
-
-                // Post back to Google Sheets
-                const stageObj = stages.find(s => s.id === newStageId);
-                try {
-                    await fetch(API_URL, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            action: 'UPDATE_STAGE',
-                            id: fleteroId,
-                            etapa: stageObj ? stageObj.name : newStageId
-                        })
-                    });
-                } catch (err) {
-                    console.warn('Sync POST failed, local state preserved:', err);
-                }
-            }
-        }
-
-        // MODAL HANDLERS
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-            if (id === 'modalFletero') {
-                document.getElementById('formFletero').reset();
-                document.getElementById('fleteroId').value = '';
-                document.getElementById('modalFleteroTitle').innerHTML = `<i class="fa-solid fa-truck-front text-arce-orange"></i> Alta de Fletero`;
-            }
-        }
-
-        // SAVE FLETERO (POST TO BACKEND)
-        async function saveFletero(e) {
-            e.preventDefault();
-
-            const id = document.getElementById('fleteroId').value;
-            const chofer = document.getElementById('choferNombre').value.trim();
-            const dni = document.getElementById('choferDni').value.trim();
-            const empresa = document.getElementById('empresaNombre').value.trim();
-            const cuit = document.getElementById('empresaCuit').value.trim();
-            const tractor = document.getElementById('patenteTractor').value.trim().toUpperCase();
-            const semi = document.getElementById('patenteSemi').value.trim().toUpperCase();
-            const stageId = document.getElementById('fleteroStageSelect').value;
-
-            const docs = {};
-            Object.keys(docLabels).forEach(key => {
-                const el = document.getElementById(key);
-                docs[key] = el ? el.checked : false;
-            });
-
-            const stageObj = stages.find(s => s.id === stageId);
-            const prog = calcProgress(docs);
-
-            if (id) {
-                const index = fleteros.findIndex(f => f.id === id);
-                if (index !== -1) {
-                    fleteros[index] = { ...fleteros[index], stageId, chofer, dni, empresa, cuit, tractor, semi, docs };
-                }
-            } else {
-                const newFletero = {
-                    id: 'f-' + Date.now(),
-                    stageId,
-                    chofer,
-                    dni,
-                    empresa,
-                    cuit,
-                    tractor,
-                    semi,
-                    docs
-                };
-                fleteros.push(newFletero);
-            }
-
-            saveToLocalStorage();
-            closeModal('modalFletero');
-            renderBoard();
-
-            // Post to Apps Script
-            try {
-                showSyncStatus(true, 'Guardando en Google Sheets...');
-                const res = await fetch(API_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        action: id ? 'UPDATE_DOCS' : 'CREATE',
-                        id: id || ('f-' + Date.now()),
-                        razonSocial: empresa,
-                        cuit: cuit,
-                        choferNombre: chofer,
-                        choferDni: dni,
-                        patenteTractor: tractor,
-                        patenteSemi: semi,
-                        etapa: stageObj ? stageObj.name : '1. Postulación / Recepción',
-                        progreso: prog,
-                        docsState: docs
-                    })
-                });
-                const result = await res.json();
-                if (result.status === 'success') {
-                    showSyncStatus(false, 'Guardado en Google Drive / Sheets');
-                    if (result.driveFolderUrl) {
-                        const target = fleteros.find(f => f.cuit === cuit);
-                        if (target) target.driveFolderUrl = result.driveFolderUrl;
-                        saveToLocalStorage();
-                        renderBoard();
-                    }
-                }
-            } catch (err) {
-                console.warn('Network error posting to Sheets, local copy updated:', err);
-                showSyncStatus(false, 'Guardado localmente');
-            }
-        }
-
-        function editFletero(id) {
-            const f = fleteros.find(item => item.id === id);
-            if (!f) return;
-
-            document.getElementById('fleteroId').value = f.id;
-            document.getElementById('choferNombre').value = f.chofer;
-            document.getElementById('choferDni').value = f.dni;
-            document.getElementById('empresaNombre').value = f.empresa;
-            document.getElementById('empresaCuit').value = f.cuit;
-            document.getElementById('patenteTractor').value = f.tractor;
-            document.getElementById('patenteSemi').value = f.semi;
-            document.getElementById('fleteroStageSelect').value = f.stageId;
-
-            Object.keys(docLabels).forEach(key => {
-                const el = document.getElementById(key);
-                if (el) el.checked = !!(f.docs && f.docs[key]);
-            });
-
-            document.getElementById('modalFleteroTitle').innerHTML = `<i class="fa-solid fa-pen-to-square text-arce-orange"></i> Editar Fletero: ${f.chofer}`;
-            openModal('modalFletero');
-        }
-
-        function deleteFletero(id) {
-            if (confirm('¿Está seguro de eliminar este fletero?')) {
-                fleteros = fleteros.filter(f => f.id !== id);
-                saveToLocalStorage();
-                renderBoard();
-            }
-        }
-
-        function addStage(e) {
-            e.preventDefault();
-            const name = document.getElementById('stageNameInput').value.trim();
-            const color = document.getElementById('stageColorInput').value;
-
-            if (!name) return;
-
-            stages.push({ id: 'stage-' + Date.now(), name, color });
-            saveToLocalStorage();
-            closeModal('modalStage');
-            document.getElementById('stageNameInput').value = '';
-            renderBoard();
-        }
-
-        function deleteStage(stageId) {
-            if (fleteros.some(f => f.stageId === stageId)) {
-                alert('No se puede eliminar una etapa que contiene fleteros.');
-                return;
-            }
-            if (confirm('¿Eliminar etapa del pipeline?')) {
-                stages = stages.filter(st => st.id !== stageId);
-                saveToLocalStorage();
-                renderBoard();
-            }
-        }
-
-        function openDetailModal(id) {
-            const f = fleteros.find(item => item.id === id);
-            if (!f) return;
-
-            const prog = calcProgress(f.docs);
-
-            document.getElementById('detailChofer').innerText = f.chofer;
-            document.getElementById('detailEmpresa').innerText = `${f.empresa} — CUIT: ${f.cuit} | Tractor: ${f.tractor} / Semi: ${f.semi}`;
-            
-            const detailContent = document.getElementById('detailContent');
-            detailContent.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        <h4 class="font-bold text-slate-800 mb-2 border-b pb-1">👤 Documentación Chofer</h4>
-                        <ul class="space-y-1.5">
-                            ${renderDocItemDetail(f.docs.doc_dni, docLabels.doc_dni)}
-                            ${renderDocItemDetail(f.docs.doc_licencia, docLabels.doc_licencia)}
-                            ${renderDocItemDetail(f.docs.doc_art, docLabels.doc_art)}
-                            ${renderDocItemDetail(f.docs.doc_f931, docLabels.doc_f931)}
-                            ${renderDocItemDetail(f.docs.doc_recibo, docLabels.doc_recibo)}
-                            ${renderDocItemDetail(f.docs.doc_sindicato, docLabels.doc_sindicato)}
-                            ${renderDocItemDetail(f.docs.doc_seme, docLabels.doc_seme)}
-                            ${renderDocItemDetail(f.docs.doc_curso_tubos, docLabels.doc_curso_tubos)}
-                        </ul>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        <h4 class="font-bold text-slate-800 mb-2 border-b pb-1">🚛 Documentación Vehicular</h4>
-                        <ul class="space-y-1.5">
-                            ${renderDocItemDetail(f.docs.doc_cedula, docLabels.doc_cedula)}
-                            ${renderDocItemDetail(f.docs.doc_vtv, docLabels.doc_vtv)}
-                            ${renderDocItemDetail(f.docs.doc_seguro, docLabels.doc_seguro)}
-                            ${renderDocItemDetail(f.docs.doc_pago_seguro, docLabels.doc_pago_seguro)}
-                            ${renderDocItemDetail(f.docs.doc_sicram, docLabels.doc_sicram)}
-                        </ul>
-                    </div>
-                </div>
-            `;
-
-            const badgeEl = document.getElementById('detailProgressBadge');
-            badgeEl.innerText = `Estado: ${prog}% Habilitado`;
-            badgeEl.className = `font-bold text-xs ${prog === 100 ? 'text-emerald-700' : 'text-arce-orange'}`;
-
-            openModal('modalDetail');
-        }
-
-        function renderDocItemDetail(status, label) {
-            return `
-                <li class="flex items-center justify-between text-xs p-1 rounded ${status ? 'bg-emerald-50 text-emerald-900' : 'bg-red-50 text-red-900'}">
-                    <span>${label}</span>
-                    <span class="font-bold">${status ? '✓ Aprobado' : 'X Pendiente'}</span>
-                </li>
-            `;
-        }
-
-        function exportData() {
-            const data = { stages, fleteros };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `pipeline_fleteros_arce_${new Date().toISOString().slice(0,10)}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function importDataPrompt() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'application/json';
-            input.onchange = e => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = event => {
-                    try {
-                        const parsed = JSON.parse(event.target.result);
-                        if (parsed.stages && parsed.fleteros) {
-                            stages = parsed.stages;
-                            fleteros = parsed.fleteros;
-                            saveToLocalStorage();
-                            renderBoard();
-                            alert('Datos importados correctamente.');
-                        }
-                    } catch (err) {
-                        alert('Error al leer el archivo JSON.');
-                    }
-                };
-                reader.readAsText(file);
-            };
-            input.click();
-        }
-
-        window.onload = initApp;
-    </script>
+      } catch (err) {
+        console.warn("Utilizando datos locales/padrón inicial por falta de servidor remoto.");
+      } finally {
+        showLoading(false);
+        renderBoard();
+      }
+    }
+
+    function calculateProgress(docsState) {
+      if (!docsState) return 0;
+      let ok = 0;
+      REQUIRED_DOCS.forEach(d => { if (docsState[d.key] === true) ok++; });
+      return Math.round((ok / REQUIRED_DOCS.length) * 100);
+    }
+
+    function renderBoard() {
+      const grid = document.getElementById("pipelineGrid");
+      grid.innerHTML = "";
+
+      stages.forEach(st => {
+        const stageItems = fleteros.filter(f => f.etapa === st);
+        const col = document.createElement("div");
+        col.className = "pipeline-col";
+        col.innerHTML = `
+          <div class="col-header">
+            <span>${st}</span>
+            <span class="col-count">${stageItems.length}</span>
+          </div>
+          <div class="col-cards" ondragover="allowDrop(event)" ondrop="drop(event, '${st}')">
+            ${stageItems.length === 0 ? '<div style="text-align:center; color:#94a3b8; font-size:0.75rem; margin-top:2rem;">Arrastrar o agregar aquí</div>' : ''}
+            ${stageItems.map(f => createCardHTML(f)).join('')}
+          </div>
+        `;
+        grid.appendChild(col);
+      });
+
+      updateMetrics();
+    }
+
+    function createCardHTML(f) {
+      const prog = calculateProgress(f.docsState);
+      const isComplete = prog === 100;
+      
+      const pillsHTML = REQUIRED_DOCS.map(d => {
+        const ok = f.docsState && f.docsState[d.key] === true;
+        return `<span class="doc-pill ${ok ? 'ok' : ''}">${d.label} ${ok ? '✓' : '✗'}</span>`;
+      }).join('');
+
+      return `
+        <div class="card" draggable="true" ondragstart="drag(event, '${f.id}')" onclick="openDocModal('${f.id}')">
+          <div class="card-top">
+            <div class="card-name">${f.choferNombre || f.razonSocial}</div>
+            <span class="pct-badge ${isComplete ? 'complete' : ''}">${prog}%</span>
+          </div>
+          <div class="card-sub">${f.razonSocial}</div>
+          <div class="card-grid">
+            <div>DNI: <b>${f.choferDni || 'N/A'}</b></div>
+            <div>CUIT: <b>${f.cuit || 'N/A'}</b></div>
+            <div>Tractor: <b>${f.patenteTractor || 'N/A'}</b></div>
+            <div>Semi: <b>${f.patenteSemi || 'N/A'}</b></div>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width:${prog}%; background:${isComplete ? 'var(--success)' : 'var(--arce-orange)'}"></div>
+          </div>
+          <div class="pills-row">${pillsHTML}</div>
+          <div class="card-actions">
+            <div class="action-btns">
+              <i class="fas fa-eye" title="Ver legajo"></i>
+              <i class="fas fa-edit" title="Editar"></i>
+              <i class="fas fa-trash" style="color:#ef4444;" title="Eliminar" onclick="event.stopPropagation(); deleteFletero('${f.id}')"></i>
+            </div>
+            <div>
+              <button class="nav-arrow" onclick="event.stopPropagation(); moveStage('${f.id}', -1)"><i class="fas fa-chevron-left"></i></button>
+              <button class="nav-arrow" onclick="event.stopPropagation(); moveStage('${f.id}', 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateMetrics() {
+      document.getElementById("mTotal").innerText = fleteros.length;
+      document.getElementById("mProcess").innerText = fleteros.filter(f => f.etapa !== "4. Habilitado Tenaris").length;
+      document.getElementById("mReady").innerText = fleteros.filter(f => f.etapa === "4. Habilitado Tenaris").length;
+    }
+
+    function openDocModal(id) {
+      currentSelectedId = id;
+      const f = fleteros.find(item => item.id === id);
+      if (!f) return;
+
+      document.getElementById("modalTitle").innerText = `${f.choferNombre} — Legajo Documental`;
+      document.getElementById("modalInfo").innerHTML = `
+        <div style="font-size:0.8rem; background:#f1f5f9; padding:0.6rem; border-radius:6px; display:grid; grid-template-columns:1fr 1fr; gap:0.4rem;">
+          <div><b>Empresa:</b> ${f.razonSocial}</div>
+          <div><b>CUIT:</b> ${f.cuit}</div>
+          <div><b>Equipos:</b> ${f.patenteTractor} / ${f.patenteSemi}</div>
+          <div><b>Estado Actual:</b> ${f.etapa}</div>
+        </div>
+      `;
+
+      const area = document.getElementById("checklistArea");
+      area.innerHTML = "";
+
+      REQUIRED_DOCS.forEach(d => {
+        const ok = f.docsState && f.docsState[d.key] === true;
+        const item = document.createElement("div");
+        item.className = "check-item";
+        item.innerHTML = `
+          <span><b>${d.label}</b></span>
+          <input type="checkbox" id="chk_${d.key}" ${ok ? 'checked' : ''} style="width:18px; height:18px;">
+        `;
+        area.appendChild(item);
+      });
+
+      document.getElementById("docModal").style.display = "flex";
+    }
+
+    async function saveDocState() {
+      const f = fleteros.find(item => item.id === currentSelectedId);
+      if (!f) return;
+
+      const newState = {};
+      REQUIRED_DOCS.forEach(d => {
+        newState[d.key] = document.getElementById(`chk_${d.key}`).checked;
+      });
+
+      f.docsState = newState;
+      localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
+      closeModal("docModal");
+      renderBoard();
+
+      // Sincronización en segundo plano
+      try {
+        await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "UPDATE_DOCS",
+            id: f.id,
+            progreso: calculateProgress(newState),
+            docsState: newState
+          })
+        });
+      } catch (e) { console.warn("Sincronización remota pendiente."); }
+    }
+
+    function moveStage(id, dir) {
+      const f = fleteros.find(item => item.id === id);
+      if (!f) return;
+      const idx = stages.indexOf(f.etapa);
+      if (idx + dir >= 0 && idx + dir < stages.length) {
+        f.etapa = stages[idx + dir];
+        localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
+        renderBoard();
+        syncStageRemote(f.id, f.etapa);
+      }
+    }
+
+    async function syncStageRemote(id, stage) {
+      try {
+        await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "UPDATE_STAGE", id: id, etapa: stage })
+        });
+      } catch (e) { console.warn("Sincronización remota pendiente."); }
+    }
+
+    function createFletero(e) {
+      e.preventDefault();
+      const newF = {
+        id: "FLT-" + new Date().getTime(),
+        razonSocial: document.getElementById("nRazon").value,
+        cuit: document.getElementById("nCuit").value,
+        choferNombre: document.getElementById("nChofer").value,
+        choferDni: document.getElementById("nDni").value,
+        patenteTractor: document.getElementById("nTractor").value,
+        patenteSemi: document.getElementById("nSemi").value,
+        etapa: stages[0],
+        docsState: { seme: false, tubos: false, art: false, vtv: false, sicram: false }
+      };
+
+      fleteros.push(newF);
+      localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
+      closeModal("newModal");
+      renderBoard();
+    }
+
+    function deleteFletero(id) {
+      if (confirm("¿Desea quitar a este fletero del pipeline?")) {
+        fleteros = fleteros.filter(f => f.id !== id);
+        localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
+        renderBoard();
+      }
+    }
+
+    function addNewStage() {
+      const st = prompt("Ingrese el nombre de la nueva etapa:");
+      if (st && !stages.includes(st)) {
+        stages.push(st);
+        renderBoard();
+      }
+    }
+
+    // DRAG AND DROP
+    function drag(e, id) { e.dataTransfer.setData("text", id); }
+    function allowDrop(e) { e.preventDefault(); }
+
+    function drop(e, stage) {
+      e.preventDefault();
+      const id = e.dataTransfer.getData("text");
+      const f = fleteros.find(item => item.id === id);
+      if (f && f.etapa !== stage) {
+        f.etapa = stage;
+        localStorage.setItem("arce_fleteros_cache", JSON.stringify(fleteros));
+        renderBoard();
+        syncStageRemote(id, stage);
+      }
+    }
+
+    function filterCards() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      document.querySelectorAll(".card").forEach(c => {
+        c.style.display = c.innerText.toLowerCase().includes(q) ? "block" : "none";
+      });
+    }
+
+    function closeModal(id) { document.getElementById(id).style.display = "none"; }
+    function openNewModal() { document.getElementById("newModal").style.display = "flex"; }
+    function showLoading(s) { document.getElementById("loadingOverlay").style.display = s ? "flex" : "none"; }
+  </script>
 </body>
 </html>
