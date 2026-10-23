@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipeline Estado Documental Fleteros | Transporte Arce Hnos. S.A.</title>
+  <!-- FontAwesome e Inter Font -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --arce-navy: #002b49;
+      --arce-blue: #0056b3;
+      --arce-orange: #f26522;
+      --arce-red: #d9232e;
+      --bg-light: #f4f6f9;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* HEADER INSTITUCIONAL */
+    header.main-header {
+      background: linear-gradient(135deg, var(--arce-navy) 0%, #001a2e 100%);
+      color: white;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border-bottom: 4px solid var(--arce-orange);
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-title h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary { background-color: var(--arce-orange); color: white; }
+    .btn-primary:hover { background-color: #d85416; }
+    .btn-secondary { background-color: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-secondary:hover { background-color: rgba(255,255,255,0.2); }
+
+    /* FILTROS Y ESTADÍSTICAS */
+    .controls-bar {
+      background: white;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .search-box {
+      position: relative;
+      width: 300px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.55rem 1rem 0.55rem 2.2rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      font-size: 0.85rem;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* KANBAN BOARD PIPELINE */
+    .pipeline-container {
+      flex: 1;
+      padding: 1.5rem 2rem;
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      align-items: flex-start;
+    }
+
+    .pipeline-column {
+      background: #ebf0f5;
+      border-radius: 10px;
+      width: 320px;
+      min-width: 320px;
+      max-height: calc(100vh - 180px);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid #dbe3ed;
+    }
+
+    .column-header {
+      padding: 1rem;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .column-header h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--arce-navy);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .count-badge {
+      background: var(--bg-light);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .column-cards {
+      padding: 0.8rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      min-height: 150px;
+    }
+
+    /* TARJETA FLETERO */
+    .fletero-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      cursor: grab;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .fletero-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-color: var(--arce-blue);
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--arce-navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .card-info {
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-info div {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #475569;
+    }
+
+    .progress-bar-container {
+      background: #e2e8f0;
+      border-radius: 10px;
+      height: 6px;
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--arce-blue);
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.6rem;
+      border-top: 1px solid #f1f5f9;
+      font-size: 0.75rem;
+    }
+
+    .drive-link {
+      color: var(--arce-blue);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* MODAL DE DOCUMENTACIÓN Y ALTA */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 43, 73, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .modal-header {
+      background: var(--arce-navy);
+      color: white;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-body { padding: 1.5rem; }
+
+    .doc-checklist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .doc-item {
+      background: #f8fafc;
+      padding: 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .doc-item label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* OVERLAY CARGANDO */
+    #loadingOverlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(255,255,255,0.8);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      font-weight: 700;
+      color: var(--arce-navy);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loadingOverlay">
+    <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--arce-orange); margin-bottom: 1rem;"></i>
+    <span>Sincronizando con Google Sheets & Drive...</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="brand-title">
+      <i class="fas fa-truck-moving fa-2x" style="color: var(--arce-orange);"></i>
+      <div>
+        <h1>Transporte Arce Hnos. S.A.</h1>
+        <p>Pipeline de Estado Documental — Operación Tenaris</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" onclick="fetchDataFromSheets()"><i class="fas fa-sync"></i> Actualizar</button>
+      <button class="btn btn-primary" onclick="openNewModal()"><i class="fas fa-plus"></i> Nuevo Transportista</button>
+    </div>
+  </header>
+
+  <!-- CONTROLES -->
+  <div class="controls-bar">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Buscar Razón Social, CUIT, Chofer..." onkeyup="filterCards()">
+    </div>
+    <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">
+      <i class="fas fa-database" style="color: var(--success);"></i> Conectado a Google Sheets
+    </div>
+  </div>
+
+  <!-- PIPELINE CONTAINER -->
+  <div class="pipeline-container" id="pipelineContainer">
+    <!-- Las columnas y tarjetas se generan dinámicamente con JavaScript -->
+  </div>
+
+  <!-- MODAL: DETALLE / DOCUMENTOS -->
+  <div class="modal-overlay" id="docModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Gestión Documental Transportista</h3>
+        <button style="background:none; border:none; color:white; cursor:pointer;" onclick="closeModal('docModal')"><i class="fas fa-times fa-lg"></i></button>
+      </div>
+      <div class="modal-body">
+        <div id="modalInfoArea"></div>
+        <h4 style="margin-top: 1.2rem; color: var(--arce-navy); border-bottom: 2px solid var(--arce-orange); padding-bottom: 0.4rem;">
+          Checklist Documental de Ingreso
+        </h4>
+        <div class="doc-checklist" id="checklistArea"></div>
+        <div style="margin-top: 1.5rem; text-align: right;">
+          <button class="btn btn-primary" onclick="saveDocumentState()"><i class="fas fa-save"></i> Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NUEVO TRANSPORTISTA -->
+  <div class="modal-overlay" id="newModal">
+    <div class="modal-card" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3>Alta de Nuevo Transportista</h3>
+        <button style="background:none; border:none; color:white; cursor:pointer;" onclick="closeModal('newModal')"><i class="fas fa-times fa-lg"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="newFleteroForm">
+          <div style="margin-bottom: 0.8rem;">
+            <label style="font-size: 0.8rem; font-weight: 700;">Razón Social / Transportista *</label>
+            <input type="text" id="newRazonSocial" required style="width:100%; padding: 0.5rem; border-radius:4px; border:1px solid #ccc;">
+          </div>
+          <div style="margin-bottom: 0.8rem;">
+            <label style="font-size: 0.8rem; font-weight: 700;">CUIT *</label>
+            <input type="text" id="newCuit" required placeholder="30-XXXXXXX-X" style="width:100%; padding: 0.5rem; border-radius:4px; border:1px solid #ccc;">
+          </div>
+          <div style="margin-bottom: 0.8rem;">
+            <label style="font-size: 0.8rem; font-weight: 700;">Nombre Chofer</label>
+            <input type="text" id="newChofer" style="width:100%; padding: 0.5rem; border-radius:4px; border:1px solid #ccc;">
+          </div>
+          <div style="margin-bottom: 0.8rem;">
+            <label style="font-size: 0.8rem; font-weight: 700;">DNI Chofer</label>
+            <input type="text" id="newDni" style="width:100%; padding: 0.5rem; border-radius:4px; border:1px solid #ccc;">
+          </div>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.8rem;">
+            <div style="flex:1;">
+              <label style="font-size: 0.8rem; font-weight: 700;">Patente Tractor</label>
+              <input type="text" id="newTractor" placeholder="AA123CD" style="width:100%; padding: 0.5rem; border-radius:4px; border:1px solid #ccc;">
+            </div>
+            <div style="flex:1;">
+              <label style="font-size: 0.8rem; font-weight: 700;">Patente Semi</label>
+              <input type="text" id="newSemi" placeholder="AA123EF" style="width:100%; padding: 0.5rem; border-radius:4px; border:1px solid #ccc;">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+            <i class="fas fa-folder-plus"></i> Crear Legajo y Carpeta Drive
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // URL DEL BACKEND GOOGLE APPS SCRIPT
+    const API_URL = "https://script.google.com/macros/s/AKfycbzJJBkG1CNR_eY26UYeSpXtGRtfpxBpwrDm8FGvP07if_86H03D0LKoGYUsXO6lNo7t/exec";
+
+    // ETAPAS DEL PIPELINE
+    const STAGES = [
+      "Alta Inicial",
+      "Carga Documental",
+      "Revisión SySO / SEME",
+      "Habilitado Tenaris",
+      "Rechazado / Incompleto"
+    ];
+
+    // DOCUMENTOS EXIGIDOS EN TENARIS
+    const REQUIRED_DOCS = [
+      { key: "dni", label: "DNI Chofer (Frente/Dorso)" },
+      { key: "licencia", label: "Licencia de Conducir LINTI/Nacional" },
+      { key: "art", label: "ART (Cláusula No Repetición Tenaris)" },
+      { key: "f931", label: "F-931 / Alta Monotributo" },
+      { key: "apto_seme", label: "Apto Médico Laboral SEME" },
+      { key: "curso_tubos", label: "Curso Suficiencia Cargas Tubulares" },
+      { key: "cedula_tractor", label: "Cédula Verde Tractor" },
+      { key: "vtv_tractor", label: "VTV/RTO Tractor" },
+      { key: "cedula_semi", label: "Cédula Verde Semi" },
+      { key: "vtv_semi", label: "VTV/RTO Semi" },
+      { key: "seguro", label: "Póliza y Comprobante de Pago Seguro" },
+      { key: "sicram", label: "Habilitación Extranet SICRAM" }
+    ];
+
+    let fleterosData = [];
+    let currentSelectedId = null;
+
+    // INICIALIZACIÓN
+    window.onload = function() {
+      fetchDataFromSheets();
+    };
+
+    // OBTENER DATOS DESDE GOOGLE SHEETS
+    async function fetchDataFromSheets() {
+      showLoading(true);
+      try {
+        const response = await fetch(API_URL);
+        const result = await response.json();
+        if (result.status === "success") {
+          fleterosData = result.data;
+          renderPipeline();
+        } else {
+          alert("Error al cargar datos desde Google Sheets: " + result.message);
+        }
+      } catch (err) {
+        console.error("Error de conexión:", err);
+        alert("No se pudo conectar con el Back-end de Google Apps Script.");
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    // RENDERIZAR PIPELINE KANBAN
+    function renderPipeline() {
+      const container = document.getElementById("pipelineContainer");
+      container.innerHTML = "";
+
+      STAGES.forEach(stage => {
+        const stageFleteros = fleterosData.filter(f => f.etapa === stage);
+
+        const col = document.createElement("div");
+        col.className = "pipeline-column";
+        col.innerHTML = `
+          <div class="column-header">
+            <h3>${stage}</h3>
+            <span class="count-badge">${stageFleteros.length}</span>
+          </div>
+          <div class="column-cards" ondragover="allowDrop(event)" ondrop="drop(event, '${stage}')">
+            ${stageFleteros.map(f => createCardHTML(f)).join("")}
+          </div>
+        `;
+        container.appendChild(col);
+      });
+    }
+
+    // CREAR TARJETA FLETERO HTML
+    function createCardHTML(f) {
+      const prog = calculateProgress(f.docsState);
+      return `
+        <div class="fletero-card" draggable="true" ondragstart="drag(event, '${f.id}')" onclick="openDocModal('${f.id}')">
+          <div class="card-title">${f.razonSocial}</div>
+          <div class="card-subtitle">CUIT: ${f.cuit}</div>
+          <div class="card-info">
+            <div><i class="fas fa-user-check"></i> ${f.choferNombre || 'Sin Chofer'}</div>
+            <div><i class="fas fa-truck"></i> ${f.patenteTractor || 'N/A'} / ${f.patenteSemi || 'N/A'}</div>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: ${prog}%; background-color: ${prog === 100 ? 'var(--success)' : 'var(--arce-blue)'};"></div>
+          </div>
+          <div class="card-footer">
+            <span style="font-weight:700;">${prog}% Completo</span>
+            ${f.driveFolderUrl ? `<a href="${f.driveFolderUrl}" target="_blank" class="drive-link" onclick="event.stopPropagation()"><i class="fab fa-google-drive"></i> Drive</a>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // CÁLCULO DE PORCENTAJE DE DOCUMENTACIÓN
+    function calculateProgress(docsState) {
+      if (!docsState) return 0;
+      let approvedCount = 0;
+      REQUIRED_DOCS.forEach(d => {
+        if (docsState[d.key] === true) approvedCount++;
+      });
+      return Math.round((approvedCount / REQUIRED_DOCS.length) * 100);
+    }
+
+    // MODAL DOCUMENTOS
+    function openDocModal(id) {
+      currentSelectedId = id;
+      const f = fleterosData.find(item => item.id === id);
+      if (!f) return;
+
+      document.getElementById("modalTitle").innerText = `${f.razonSocial} (CUIT: ${f.cuit})`;
+      document.getElementById("modalInfoArea").innerHTML = `
+        <div style="font-size: 0.85rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; background:#f1f5f9; padding:0.8rem; border-radius:6px;">
+          <div><strong>Chofer:</strong> ${f.choferNombre} (DNI: ${f.choferDni})</div>
+          <div><strong>Tractor/Semi:</strong> ${f.patenteTractor} / ${f.patenteSemi}</div>
+        </div>
+      `;
+
+      const checklistArea = document.getElementById("checklistArea");
+      checklistArea.innerHTML = "";
+
+      REQUIRED_DOCS.forEach(doc => {
+        const isChecked = f.docsState && f.docsState[doc.key] === true;
+        const item = document.createElement("div");
+        item.className = "doc-item";
+        item.innerHTML = `
+          <label for="doc_${doc.key}">${doc.label}</label>
+          <input type="checkbox" id="doc_${doc.key}" ${isChecked ? 'checked' : ''} style="width: 18px; height: 18px;">
+        `;
+        checklistArea.appendChild(item);
+      });
+
+      document.getElementById("docModal").style.display = "flex";
+    }
+
+    // GUARDAR ESTADO DOCUMENTAL
+    async function saveDocumentState() {
+      const f = fleterosData.find(item => item.id === currentSelectedId);
+      if (!f) return;
+
+      const newDocsState = {};
+      REQUIRED_DOCS.forEach(doc => {
+        const cb = document.getElementById(`doc_${doc.key}`);
+        newDocsState[doc.key] = cb.checked;
+      });
+
+      const newProg = calculateProgress(newDocsState);
+      f.docsState = newDocsState;
+      f.progreso = newProg;
+
+      closeModal("docModal");
+      showLoading(true);
+
+      try {
+        await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "UPDATE_DOCS",
+            id: f.id,
+            progreso: newProg,
+            docsState: newDocsState
+          })
+        });
+        renderPipeline();
+      } catch (err) {
+        alert("Error al actualizar documentos en Sheets: " + err.message);
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    // MODAL NUEVO TRANSPORTISTA
+    function openNewModal() {
+      document.getElementById("newModal").style.display = "flex";
+    }
+
+    document.getElementById("newFleteroForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      closeModal("newModal");
+      showLoading(true);
+
+      const payload = {
+        action: "CREATE",
+        razonSocial: document.getElementById("newRazonSocial").value,
+        cuit: document.getElementById("newCuit").value,
+        choferNombre: document.getElementById("newChofer").value,
+        choferDni: document.getElementById("newDni").value,
+        patenteTractor: document.getElementById("newTractor").value,
+        patenteSemi: document.getElementById("newSemi").value,
+        etapa: "Alta Inicial",
+        progreso: 0,
+        docsState: {}
+      };
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+        if (result.status === "success") {
+          fetchDataFromSheets();
+        } else {
+          alert("Error: " + result.message);
+        }
+      } catch (err) {
+        alert("Error al crear transportista: " + err.message);
+      } finally {
+        showLoading(false);
+      }
+    });
+
+    // DRAG AND DROP ETAPAS
+    function drag(e, id) { e.dataTransfer.setData("text", id); }
+    function allowDrop(e) { e.preventDefault(); }
+
+    async function drop(e, newStage) {
+      e.preventDefault();
+      const id = e.dataTransfer.getData("text");
+      const f = fleterosData.find(item => item.id === id);
+      
+      if (f && f.etapa !== newStage) {
+        f.etapa = newStage;
+        renderPipeline();
+
+        try {
+          await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({
+              action: "UPDATE_STAGE",
+              id: id,
+              etapa: newStage
+            })
+          });
+        } catch (err) {
+          console.error("Error al mover de etapa:", err);
+        }
+      }
+    }
+
+    // FUNCIONES AUXILIARES
+    function closeModal(modalId) { document.getElementById(modalId).style.display = "none"; }
+    function showLoading(show) { document.getElementById("loadingOverlay").style.display = show ? "flex" : "none"; }
+
+    function filterCards() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      document.querySelectorAll(".fletero-card").forEach(card => {
+        const txt = card.innerText.toLowerCase();
+        card.style.display = txt.includes(q) ? "block" : "none";
+      });
+    }
+  </script>
+</body>
+</html>
